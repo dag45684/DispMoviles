@@ -49,16 +49,18 @@ public class MainActivity extends AppCompatActivity {
         if(coins.compareTo(new BigInteger("1000")) == 1 && coins.compareTo(new BigInteger("1000000")) != 1){
 //            counter.setText(Double.toString(coins/1000d).substring(0,3) + "Tho");
             //TODO: THIS DOESNT WORK. JUST IMPLEMENT A FUCKING STRING ADDITION FOR THE COMMA THEN TRIM THE UNDESIRED SHIT.
-            counter.setText(new BigDecimal(coins.divide(new BigInteger("1000"))).toString());
+//            counter.setText(new BigDecimal(coins.divide(new BigInteger("1000"))).toString());
+            counter.setText(coins.toString().substring(0,1) + "," + coins.toString().substring(2,4) + "Tho");
         } else if (coins.compareTo(new BigInteger("1000000")) == 1 && coins.compareTo(new BigInteger("1000000000")) != 1) {
 //            counter.setText(Double.toString(coins/1000000d).substring(0,4) + "M");
-            counter.setText(new BigDecimal(coins.divide(new BigInteger("1000000"))).toString());
+//            counter.setText(new BigDecimal(coins.divide(new BigInteger("1000000"))).toString());
+            counter.setText(coins.toString().substring(0,2) + "," + coins.toString().substring(3,4) + "M");
         } else if (coins.compareTo(new BigInteger("1000000000")) == 1 && coins.compareTo(new BigInteger("1000000000000")) != 1) {
 //            counter.setText(Double.toString(coins/1000000000d).substring(0,4) + "B");
-            counter.setText(new BigDecimal(coins.divide(new BigInteger("1000000000"))).toString());
+//            counter.setText(new BigDecimal(coins.divide(new BigInteger("1000000000"))).toString());
         } else if (coins.compareTo(new BigInteger("1000000000000")) == 1 && coins.compareTo(new BigInteger("1000000000000000")) != 1) {
 //            counter.setText(Double.toString(coins/1000000000d).substring(0,4) + "T");
-            counter.setText(new BigDecimal(coins.divide(new BigInteger("1000000000000"))).toString());
+//            counter.setText(new BigDecimal(coins.divide(new BigInteger("1000000000000"))).toString());
         }else{
             counter.setText(coins.toString());
         }
