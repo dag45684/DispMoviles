@@ -49,7 +49,7 @@
         android:layout_height="130dp"
         android:background="#FFAA99"
         android:orientation="horizontal"
-        android:onClick="levelup"
+        android:onClick="click_levelup"
 
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

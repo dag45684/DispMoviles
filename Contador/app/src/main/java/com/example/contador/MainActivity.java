@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.ScaleAnimation;
@@ -14,6 +13,7 @@ import android.widget.TextView;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.math.RoundingMode;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -22,12 +22,13 @@ public class MainActivity extends AppCompatActivity {
     LinearLayout lup;
     Button b;
     TextView t3;
-    int addition = 100000;
-    int level = 1;
+    long addition = 100000;
+    long autoSumValue = 1;
+    int click_level = 1;
+    int auto_level = 1;
     int costemejora = 100;
     BigInteger coins = new BigInteger("9999");
-    BigInteger autoSumValue = new BigInteger("1");
-    ScaleAnimation fade_in = new ScaleAnimation(0.7f, 1.2f, 0.7f, 1.2f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+    ScaleAnimation boing = new ScaleAnimation(0.7f, 1.2f, 0.7f, 1.2f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,95 +39,84 @@ public class MainActivity extends AppCompatActivity {
         mikusais = (TextView) findViewById(R.id.mikusay);
         t3 = (TextView) findViewById(R.id.t3);
         lup = (LinearLayout) findViewById(R.id.lup);
-        fade_in.setDuration(100);
+        boing.setDuration(100);
         autoSum();
     }
 
-    public void sum(View v){
-        lup.startAnimation(fade_in);
-        counter.setTextColor(Color.rgb(0,0,0));
-        coins.add(new BigInteger(Integer.toString(addition)));
-        if(coins.compareTo(new BigInteger("1000")) == 1 && coins.compareTo(new BigInteger("1000000")) != 1){
-//            counter.setText(Double.toString(coins/1000d).substring(0,3) + "Tho");
-            //TODO: THIS DOESNT WORK. JUST IMPLEMENT A FUCKING STRING ADDITION FOR THE COMMA THEN TRIM THE UNDESIRED SHIT.
-//            counter.setText(new BigDecimal(coins.divide(new BigInteger("1000"))).toString());
-            counter.setText(coins.toString().substring(0,1) + "," + coins.toString().substring(2,4) + "Tho");
+    public void sum(View v) {
+        lup.startAnimation(boing);
+        counter.setTextColor(Color.rgb(0, 0, 0));
+        coins = coins.add(new BigInteger(Long.toString(addition)));
+        coinDisplayer();
+    }
+
+    public void coinDisplayer() {
+        if (coins.compareTo(new BigInteger("1000")) == 1 && coins.compareTo(new BigInteger("1000000")) != 1) {
+            counter.setText((new BigDecimal(coins).divide(new BigDecimal("1000"), 2, RoundingMode.FLOOR)).toString() + "Th");
         } else if (coins.compareTo(new BigInteger("1000000")) == 1 && coins.compareTo(new BigInteger("1000000000")) != 1) {
-//            counter.setText(Double.toString(coins/1000000d).substring(0,4) + "M");
-//            counter.setText(new BigDecimal(coins.divide(new BigInteger("1000000"))).toString());
-            counter.setText(coins.toString().substring(0,2) + "," + coins.toString().substring(3,4) + "M");
+            counter.setText((new BigDecimal(coins).divide(new BigDecimal("1000000"), 2, RoundingMode.FLOOR)).toString() + "M");
         } else if (coins.compareTo(new BigInteger("1000000000")) == 1 && coins.compareTo(new BigInteger("1000000000000")) != 1) {
-//            counter.setText(Double.toString(coins/1000000000d).substring(0,4) + "B");
-//            counter.setText(new BigDecimal(coins.divide(new BigInteger("1000000000"))).toString());
+            counter.setText((new BigDecimal(coins).divide(new BigDecimal("1000000000"), 2, RoundingMode.FLOOR)).toString() + "B");
         } else if (coins.compareTo(new BigInteger("1000000000000")) == 1 && coins.compareTo(new BigInteger("1000000000000000")) != 1) {
-//            counter.setText(Double.toString(coins/1000000000d).substring(0,4) + "T");
-//            counter.setText(new BigDecimal(coins.divide(new BigInteger("1000000000000"))).toString());
-        }else{
+            counter.setText((new BigDecimal(coins).divide(new BigDecimal("1000000000000"), 2, RoundingMode.FLOOR)).toString() + "T");
+        } else {
             counter.setText(coins.toString());
-        }
-        if(coins.compareTo(new BigInteger(Integer.toString(costemejora))) == -1){
-            lup.setEnabled(false);
-            lup.setBackgroundColor(Color.rgb(220,220,220));
-        }else{
-            lup.setEnabled(true);
-//            lup.setBackgroundColor(Color.rgb(255,200,180));
-//            for (int i=2; i<=((int)coins/2)+1; i++){
-//                if (coins%i == 0 && coins!=2){
-//                    counter.setTextColor(Color.rgb(0,0,0));
-//                    break;
-//                }else counter.setTextColor(Color.rgb(255,0,0));
-//            }
         }
     }
 
-    public void autoSum (){
+    public void autoSum() {
         new Thread(() -> {
-            while(true){
-                coins = coins.add(autoSumValue);
-                runOnUiThread(() -> counter.setText(coins.toString()));
+            while (true) {
+                coins = coins.add(new BigInteger(Long.toString(autoSumValue)));
+                runOnUiThread(() -> coinDisplayer());
                 try {
                     Thread.sleep(1000);
-                } catch (InterruptedException e) {}
+                } catch (InterruptedException e) {
+                }
             }
         }).start();
     }
-    
-    public void levelup(View v) {
-        if (level <= 3) {
-            if (Integer.parseInt(counter.getText().toString()) >= costemejora) {
-                level++;
-                b.setEnabled(true);
-                counter.setTextColor(Color.rgb(0, 0, 0));
-                counter.setText("" + (Integer.parseInt(counter.getText().toString()) - costemejora));
-                addition += 1;
-                mikusais.setText("Tap me to upgrade \n Current level: " + Integer.toString(addition - 1));
-                b.setText("+" + Integer.toString(addition));
-            }
-        } else if (level <= 5) {
-            costemejora = 200;
-            if (Integer.parseInt(counter.getText().toString()) >= costemejora) {
-                level++;
-                b.setEnabled(true);
-                counter.setTextColor(Color.rgb(0, 0, 0));
-                counter.setText("" + (Integer.parseInt(counter.getText().toString()) - costemejora));
-                addition *= 2;
-                mikusais.setText("Tap me to upgrade \n Current level: " + Integer.toString(level));
-                b.setText("+" + Integer.toString(addition));
-                t3.setText("200 puntos");
-            } else if (level <= 9) {
-                costemejora = 500;
-                if (Integer.parseInt(counter.getText().toString()) >= costemejora) {
-                    level++;
-                    b.setEnabled(true);
-                    counter.setTextColor(Color.rgb(0, 0, 0));
-                    counter.setText("" + (Integer.parseInt(counter.getText().toString()) - costemejora));
-                    addition *= addition;
-                    mikusais.setText("Tap me to upgrade \n Current level: " + Integer.toString(level));
-                    b.setText("+" + Integer.toString(addition));
-                    t3.setText("500 puntos");
-                }
-            }
+
+    public void click_levelup() {
+        long improvement = 10;
+        if (click_level <= 10) {
+            costemejora = 100;
+        } else if (click_level <= 20) {
+            costemejora = 1000;
+            improvement += improvement+ click_level;
+        } else if (click_level <= 30) {
+            costemejora = 5000;
+            improvement *= click_level;
+        } else {
+            costemejora = 100000;
+            improvement = click_level * click_level;
+        }
+        if(coins.compareTo(new BigInteger(Integer.toString(costemejora))) == 1){
+            click_level++;
+            coins = coins.subtract(new BigInteger(Integer.toString(costemejora)));
+            addition = improvement;
         }
     }
 
+    public void auto_levelup () {
+        long improvement = 1;
+        if (auto_level <= 10) {
+            costemejora = 100;
+            improvement += auto_level;
+        } else if (auto_level <= 20) {
+            costemejora = 1000;
+            improvement += auto_level * 2;
+        } else if (auto_level <= 30) {
+            costemejora = 5000;
+            improvement *= auto_level;
+        } else {
+            costemejora = 100000;
+            improvement = auto_level * 10;
+        }
+        if(coins.compareTo(new BigInteger(Integer.toString(costemejora))) == 1){
+            auto_level++;
+            coins = coins.subtract(new BigInteger(Integer.toString(costemejora)));
+            autoSumValue = improvement;
+        }
+    }
 }
