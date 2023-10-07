@@ -7,7 +7,7 @@
     tools:context=".MainActivity">
 
 
-    <ImageView
+    <!-- Miku and button --> <ImageView
         android:id="@+id/imageView"
         android:layout_width="202dp"
         android:layout_height="183dp"
@@ -21,8 +21,9 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.516" />
 
-
-    <TextView
+    <!-- Blue box under miku --> <TextView
+        android:text="Feed me!"
+        android:textAlignment="center"
         android:layout_width="match_parent"
         android:layout_height="300dp"
         android:layout_marginTop="-10dp"
@@ -30,7 +31,7 @@
         app:layout_constraintTop_toBottomOf="@+id/imageView"
         tools:layout_editor_absoluteX="105dp" />
 
-    <TextView
+    <!-- Counter value --> <TextView
         android:id="@+id/countertext"
         android:layout_width="255dp"
         android:layout_height="114dp"
@@ -42,7 +43,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.183" />
 
-    <TextView
+    <!-- Unimplemented --><TextView
         android:id="@+id/mikusay"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -53,8 +54,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.275" />
 
-    <!-- ScrollView -->
-    <ScrollView
+    <!-- ScrollView --> <ScrollView
         android:layout_width="378dp"
         android:layout_height="215dp"
         android:background="#fbbdfc"
@@ -66,8 +66,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.97">
 
-        <!-- The actual thing to scroll within the scrollview -->
-        <LinearLayout
+        <!-- The actual thing to scroll within the scrollview --> <LinearLayout
             android:id="@+id/lup"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -83,13 +82,14 @@
 
             <!-- Implement temporal boosters for X seconds with threads that deactivates the thing-->
 
-            <!-- block to increase auto click timing-->
-            <LinearLayout
+            <!-- block to increase auto click timing--><LinearLayout
                 android:layout_width="match_parent"
-                android:paddingBottom="5dp"
+                android:layout_marginBottom="5dp"
                 android:layout_height="80dp"
                 android:gravity="center"
                 android:orientation="horizontal"
+                android:background="#FA9BDE"
+                android:tag="1"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.498"
@@ -121,10 +121,9 @@
                     app:layout_constraintVertical_bias="0.275">
 
                     <TextView
-                        android:id="@+id/t7"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Subir nivel"
+                        android:text="Buy click level"
                         android:textAlignment="center"
                         android:textSize="20dp"
                         android:textStyle="bold"
@@ -136,10 +135,9 @@
                         app:layout_constraintVertical_bias="0.275" />
 
                     <TextView
-                        android:id="@+id/t8"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Incrementa el valor del auto click"
+                        android:text="Increases Click value"
                         android:textAlignment="center"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -149,10 +147,10 @@
                         app:layout_constraintVertical_bias="0.275" />
 
                     <TextView
-                        android:id="@+id/t9"
+                        android:id="@+id/lvc"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="(100 puntos)"
+                        android:text="Price: <X>"
                         android:textAlignment="center"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -165,13 +163,14 @@
 
             </LinearLayout>
 
-            <!-- block to increase auto click -->
-            <LinearLayout
+            <!-- block to increase auto click --><LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="80dp"
                 android:gravity="center"
+                android:background="#FA9BDE"
+                android:tag="2"
                 android:orientation="horizontal"
-                android:paddingBottom="5dp"
+                android:layout_marginBottom="5dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.498"
@@ -180,7 +179,6 @@
                 app:layout_constraintVertical_bias="0.275">
 
                 <ImageView
-                    android:id="@+id/imageView3"
                     android:layout_width="114dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
@@ -203,12 +201,11 @@
                     app:layout_constraintVertical_bias="0.275">
 
                     <TextView
-                        android:id="@+id/t4"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Subir nivel"
+                        android:text="Buy Autoclick level"
                         android:textAlignment="center"
-                        android:textSize="20dp"
+                        android:textSize="19dp"
                         android:textStyle="bold"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -221,7 +218,7 @@
                         android:id="@+id/t5"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Incrementa el valor del auto click"
+                        android:text="Increases Autoclick value"
                         android:textAlignment="center"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -231,10 +228,10 @@
                         app:layout_constraintVertical_bias="0.275" />
 
                     <TextView
-                        android:id="@+id/t6"
+                        android:id="@+id/lvac"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="(100 puntos)"
+                        android:text="Price: <X>"
                         android:textAlignment="center"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -247,13 +244,14 @@
 
             </LinearLayout>
 
-            <!-- block to increase click -->
-            <LinearLayout
+            <!-- block to increase click --><LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="80dp"
                 android:gravity="center"
+                android:background="#FA9BDE"
                 android:orientation="horizontal"
-                android:paddingBottom="5dp"
+                android:tag="3"
+                android:layout_marginBottom="5dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.498"
@@ -262,7 +260,6 @@
                 app:layout_constraintVertical_bias="0.275">
 
                 <ImageView
-                    android:id="@+id/imageView2"
                     android:layout_width="114dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
@@ -288,9 +285,9 @@
                         android:id="@+id/t1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Subir nivel"
+                        android:text="Buy Oven level"
                         android:textAlignment="center"
-                        android:textSize="20dp"
+                        android:textSize="19dp"
                         android:textStyle="bold"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -303,7 +300,7 @@
                         android:id="@+id/t2"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Incrementa el valor del click"
+                        android:text="Increases the Autoclick speed"
                         android:textAlignment="center"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -313,10 +310,10 @@
                         app:layout_constraintVertical_bias="0.275" />
 
                     <TextView
-                        android:id="@+id/t3"
+                        android:id="@+id/lvh"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="(100 puntos)"
+                        android:text="Price: <X>"
                         android:textAlignment="center"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -331,6 +328,41 @@
 
         </LinearLayout>
     </ScrollView>
+
+    <!-- Layout to display the levels --><LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="31dp"
+        android:orientation="horizontal"
+        android:gravity="center_horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.023">
+
+        <TextView
+            android:id="@+id/cliclevel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:paddingHorizontal="20dp"
+            android:text="Click level: 1" />
+        <TextView
+            android:id="@+id/autocliclevel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:paddingHorizontal="20dp"
+            android:text="Autoclick level: 1" />
+        <TextView
+            android:id="@+id/ovenlevel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:paddingHorizontal="20dp"
+            android:text="Oven level: 1" />
+
+    </LinearLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
