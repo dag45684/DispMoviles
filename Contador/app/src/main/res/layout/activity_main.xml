@@ -45,18 +45,21 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.183" />
 
-    <!-- Unimplemented --><TextView
-        android:id="@+id/mikusay"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.275" />
+    <!-- Yummy text popup on click -->
 
-    <!-- ScrollView --> <ScrollView
+    <!-- ScrollView --> <TextView
+    android:id="@+id/mikusay"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="Yum!"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintHorizontal_bias="0.121"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintVertical_bias="0.411" />
+
+    <ScrollView
         android:layout_width="378dp"
         android:layout_height="215dp"
         android:background="#fbbdfc"
@@ -312,7 +315,7 @@
                         app:layout_constraintVertical_bias="0.275" />
 
                     <TextView
-                        android:id="@+id/lvh"
+                        android:id="@+id/lvo"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Price: <X>"

@@ -28,6 +28,9 @@ public class MainActivity extends AppCompatActivity {
     int costemejora_click = 100;
     int costemejora_oven = 100;
     int costemejora_auto = 100;
+    TextView lvac;
+    TextView lvc;
+    TextView lvo;
     TextView says;
     BigInteger coins = new BigInteger("9999");
     ScaleAnimation boing = new ScaleAnimation(0.7f, 1.2f, 0.7f, 1.2f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
@@ -37,6 +40,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         counter = (TextView) findViewById(R.id.countertext);
+        lvac = (TextView) findViewById(R.id.lvc);
+        lvc = (TextView) findViewById(R.id.lvac);
+        lvo = (TextView) findViewById(R.id.lvo);
         says = (TextView) findViewById(R.id.mikusay);
         boing.setDuration(100);
         autoSum();
@@ -45,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
     public void sum(View v) {
         counter.setTextColor(Color.rgb(0, 0, 0));
         coins = coins.add(new BigInteger(Long.toString(addition)));
+        yummy();
         coinDisplayer();
     }
 
@@ -108,19 +115,19 @@ public class MainActivity extends AppCompatActivity {
 
     public void click_levelup() {
         long improvement = 10;
-        if (click_level <= 10) {
-            costemejora_click = 100;
-        } else if (click_level <= 20) {
-            costemejora_click = 1000;
-            improvement += improvement+ click_level;
-        } else if (click_level <= 30) {
-            costemejora_click = 5000;
-            improvement *= click_level;
-        } else {
-            costemejora_click = 100000;
-            improvement = click_level * click_level;
-        }
         if(coins.compareTo(new BigInteger(Integer.toString(costemejora_click))) == 1){
+            if (click_level <= 10) {
+                costemejora_click = 100;
+            } else if (click_level <= 20) {
+                costemejora_click = 1000;
+                improvement += improvement+ click_level;
+            } else if (click_level <= 30) {
+                costemejora_click = 5000;
+                improvement *= click_level;
+            } else {
+                costemejora_click = 100000;
+                improvement = click_level * click_level;
+            }
             click_level++;
             coins = coins.subtract(new BigInteger(Integer.toString(costemejora_click)));
             addition = improvement;
@@ -129,21 +136,22 @@ public class MainActivity extends AppCompatActivity {
 
     public void auto_levelup () {
         long improvement = 1;
-        if (auto_level <= 10) {
-            costemejora_auto = 100;
-            improvement += auto_level;
-        } else if (auto_level <= 20) {
-            costemejora_auto = 1000;
-            improvement += auto_level * 2;
-        } else if (auto_level <= 30) {
-            costemejora_auto = 5000;
-            improvement *= auto_level;
-        } else {
-            costemejora_auto = 100000;
-            improvement = auto_level * 10;
-        }
         if(coins.compareTo(new BigInteger(Integer.toString(costemejora_auto))) == 1){
+            if (auto_level <= 10) {
+                costemejora_auto = 100;
+                improvement += auto_level;
+            } else if (auto_level <= 20) {
+                costemejora_auto = 1000;
+                improvement += auto_level * 2;
+            } else if (auto_level <= 30) {
+                costemejora_auto = 5000;
+                improvement *= auto_level;
+            } else {
+                costemejora_auto = 100000;
+                improvement = auto_level * 10;
+            }
             auto_level++;
+
             coins = coins.subtract(new BigInteger(Integer.toString(costemejora_auto)));
             autoSumValue = improvement;
         }
