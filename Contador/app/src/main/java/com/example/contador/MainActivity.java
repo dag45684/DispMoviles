@@ -18,14 +18,12 @@ import java.math.RoundingMode;
 public class MainActivity extends AppCompatActivity {
 
     TextView counter;
-    TextView mikusais;
-    LinearLayout lup;
-    Button b;
-    TextView t3;
     long addition = 100000;
     long autoSumValue = 1;
+    int ovenspeed = 2000;
     int click_level = 1;
     int auto_level = 1;
+    int oven_level = 1;
     int costemejora = 100;
     BigInteger coins = new BigInteger("9999");
     ScaleAnimation boing = new ScaleAnimation(0.7f, 1.2f, 0.7f, 1.2f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
@@ -35,16 +33,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         counter = (TextView) findViewById(R.id.countertext);
-        b = (Button) findViewById(R.id.countersum);
-        mikusais = (TextView) findViewById(R.id.mikusay);
-        t3 = (TextView) findViewById(R.id.t3);
-        lup = (LinearLayout) findViewById(R.id.lup);
         boing.setDuration(100);
         autoSum();
     }
 
     public void sum(View v) {
-        lup.startAnimation(boing);
         counter.setTextColor(Color.rgb(0, 0, 0));
         coins = coins.add(new BigInteger(Long.toString(addition)));
         coinDisplayer();
