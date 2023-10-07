@@ -14,6 +14,7 @@ import android.widget.TextView;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.math.RoundingMode;
+import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -24,7 +25,10 @@ public class MainActivity extends AppCompatActivity {
     int click_level = 1;
     int auto_level = 1;
     int oven_level = 1;
-    int costemejora = 100;
+    int costemejora_click = 100;
+    int costemejora_oven = 100;
+    int costemejora_auto = 100;
+    TextView says;
     BigInteger coins = new BigInteger("9999");
     ScaleAnimation boing = new ScaleAnimation(0.7f, 1.2f, 0.7f, 1.2f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
 
@@ -33,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         counter = (TextView) findViewById(R.id.countertext);
+        says = (TextView) findViewById(R.id.mikusay);
         boing.setDuration(100);
         autoSum();
     }
@@ -63,30 +68,61 @@ public class MainActivity extends AppCompatActivity {
                 coins = coins.add(new BigInteger(Long.toString(autoSumValue)));
                 runOnUiThread(() -> coinDisplayer());
                 try {
-                    Thread.sleep(1000);
+                    Thread.sleep(ovenspeed);
                 } catch (InterruptedException e) {
                 }
             }
         }).start();
     }
 
+    public void yummy(){
+        Random rnd = new Random();
+        int rndx = rnd.nextInt();
+        int rndy = rnd.nextInt();
+        new Thread(() -> {
+            says.setX((float) rndx);
+            says.setY((float) rndy);
+            while(true){
+                says.setVisibility(View.VISIBLE);
+                try {
+                    Thread.sleep(200);
+                } catch (InterruptedException e) {}
+                says.setVisibility(View.INVISIBLE);
+            }
+        }).start();
+    }
+
+    public void levelup (View v){
+        switch (v.getTag().toString()){
+            case "1":
+                click_levelup();
+                break;
+            case "2":
+                auto_levelup();
+                break;
+            case "3":
+                oven_levelup();
+                break;
+        }
+    }
+
     public void click_levelup() {
         long improvement = 10;
         if (click_level <= 10) {
-            costemejora = 100;
+            costemejora_click = 100;
         } else if (click_level <= 20) {
-            costemejora = 1000;
+            costemejora_click = 1000;
             improvement += improvement+ click_level;
         } else if (click_level <= 30) {
-            costemejora = 5000;
+            costemejora_click = 5000;
             improvement *= click_level;
         } else {
-            costemejora = 100000;
+            costemejora_click = 100000;
             improvement = click_level * click_level;
         }
-        if(coins.compareTo(new BigInteger(Integer.toString(costemejora))) == 1){
+        if(coins.compareTo(new BigInteger(Integer.toString(costemejora_click))) == 1){
             click_level++;
-            coins = coins.subtract(new BigInteger(Integer.toString(costemejora)));
+            coins = coins.subtract(new BigInteger(Integer.toString(costemejora_click)));
             addition = improvement;
         }
     }
@@ -94,22 +130,32 @@ public class MainActivity extends AppCompatActivity {
     public void auto_levelup () {
         long improvement = 1;
         if (auto_level <= 10) {
-            costemejora = 100;
+            costemejora_auto = 100;
             improvement += auto_level;
         } else if (auto_level <= 20) {
-            costemejora = 1000;
+            costemejora_auto = 1000;
             improvement += auto_level * 2;
         } else if (auto_level <= 30) {
-            costemejora = 5000;
+            costemejora_auto = 5000;
             improvement *= auto_level;
         } else {
-            costemejora = 100000;
+            costemejora_auto = 100000;
             improvement = auto_level * 10;
         }
-        if(coins.compareTo(new BigInteger(Integer.toString(costemejora))) == 1){
+        if(coins.compareTo(new BigInteger(Integer.toString(costemejora_auto))) == 1){
             auto_level++;
-            coins = coins.subtract(new BigInteger(Integer.toString(costemejora)));
+            coins = coins.subtract(new BigInteger(Integer.toString(costemejora_auto)));
             autoSumValue = improvement;
         }
     }
+
+    public void oven_levelup (){
+        if(coins.compareTo(new BigInteger(Integer.toString(costemejora_oven))) == 1){
+            coins = coins.subtract(new BigInteger(Integer.toString(costemejora_oven)));
+            if (ovenspeed > 200){
+                ovenspeed -= 200;
+            }
+        }
+    }
+
 }
