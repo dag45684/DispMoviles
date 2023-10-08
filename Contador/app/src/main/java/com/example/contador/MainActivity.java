@@ -45,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
         lvo = (TextView) findViewById(R.id.lvo);
         clicklevel = (TextView) findViewById(R.id.cliclevel);
         autoclicklevel = (TextView) findViewById(R.id.autocliclevel);
+        ovenlevel = (TextView) findViewById(R.id.ovenlevel);
         says = (TextView) findViewById(R.id.mikusay);
         miku = (ImageView) findViewById(R.id.miku);
         boing.setDuration(100);
@@ -184,14 +185,15 @@ public class MainActivity extends AppCompatActivity {
 
     public void oven_levelup (){
         if(coins.compareTo(new BigInteger(Integer.toString(costemejora_oven))) == 1){
-            coins = coins.subtract(new BigInteger(Integer.toString(costemejora_oven)));
             if (ovenspeed > 200){
+                coins = coins.subtract(new BigInteger(Integer.toString(costemejora_oven)));
                 ovenspeed -= 200;
                 oven_level++;
                 ovenlevel.setText(ovenlevel.getText().toString().replaceAll("\\d+", Integer.toString(oven_level)));
             }
             else {
-               //gray button here
+               //gray button here and set text to max
+                ovenlevel.setText("Oven  level: Max.");
             }
         }
     }
