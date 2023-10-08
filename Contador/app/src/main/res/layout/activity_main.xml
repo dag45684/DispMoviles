@@ -9,8 +9,7 @@
 
 
     <!-- Miku and button --> <ImageView
-        android:contentDescription="@string/miku"
-        android:id="@+id/imageView"
+        android:id="@+id/miku"
         android:layout_width="202dp"
         android:layout_height="183dp"
         android:layout_gravity="center"
@@ -27,18 +26,20 @@
         android:text="Feed me!"
         android:textAlignment="center"
         android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_height="400dp"
         android:layout_marginTop="-10dp"
-        android:background="#99FFFF"
-        app:layout_constraintTop_toBottomOf="@+id/imageView"
+        android:background="#99E5DB"
+        app:layout_constraintTop_toBottomOf="@+id/miku"
         tools:layout_editor_absoluteX="105dp" />
 
-    <!-- Counter value --> <TextView
+    <!-- Counter value -->
+    <TextView
         android:id="@+id/countertext"
-        android:layout_width="255dp"
-        android:layout_height="114dp"
+        android:layout_width="358dp"
+        android:layout_height="109dp"
         android:text="10000"
-        android:textSize="90dp"
+        android:textSize="70dp"
+        android:textAlignment="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -47,17 +48,19 @@
 
     <!-- Yummy text popup on click -->
 
-    <!-- ScrollView --> <TextView
-    android:id="@+id/mikusay"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="Yum!"
-    app:layout_constraintBottom_toBottomOf="parent"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintHorizontal_bias="0.121"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="parent"
-    app:layout_constraintVertical_bias="0.411" />
+    <!-- ScrollView -->
+
+    <TextView
+        android:id="@+id/mikusay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Yum!"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.807"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.397" />
 
     <ScrollView
         android:layout_width="378dp"
@@ -76,7 +79,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="#99FFFF"
-            android:onClick="click_levelup"
             android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -94,6 +96,7 @@
                 android:gravity="center"
                 android:orientation="horizontal"
                 android:background="#FA9BDE"
+                android:onClick="levelup"
                 android:tag="1"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -155,7 +158,7 @@
                         android:id="@+id/lvc"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Price: <X>"
+                        android:text="Price: 100"
                         android:textAlignment="center"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -176,6 +179,7 @@
                 android:tag="2"
                 android:orientation="horizontal"
                 android:layout_marginBottom="5dp"
+                android:onClick="levelup"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.498"
@@ -236,7 +240,7 @@
                         android:id="@+id/lvac"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Price: <X>"
+                        android:text="Price: 100"
                         android:textAlignment="center"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -257,6 +261,7 @@
                 android:orientation="horizontal"
                 android:tag="3"
                 android:layout_marginBottom="5dp"
+                android:onClick="levelup"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.498"
@@ -318,7 +323,7 @@
                         android:id="@+id/lvo"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Price: <X>"
+                        android:text="Price: 1M"
                         android:textAlignment="center"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -334,11 +339,12 @@
         </LinearLayout>
     </ScrollView>
 
-    <!-- Layout to display the levels --><LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="31dp"
-        android:orientation="horizontal"
+    <!-- Layout to display the levels -->
+    <LinearLayout
+        android:layout_width="408dp"
+        android:layout_height="48dp"
         android:gravity="center_horizontal"
+        android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -349,23 +355,25 @@
             android:id="@+id/cliclevel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAlignment="center"
             android:paddingHorizontal="20dp"
-            android:text="Click level: 1" />
+            android:text="Click level: 1 \n +1"
+            android:textAlignment="center" />
+
         <TextView
             android:id="@+id/autocliclevel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAlignment="center"
             android:paddingHorizontal="20dp"
-            android:text="Autoclick level: 1" />
+            android:text="Autoclick level: 1 \n +1"
+            android:textAlignment="center" />
+
         <TextView
             android:id="@+id/ovenlevel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAlignment="center"
             android:paddingHorizontal="20dp"
-            android:text="Oven level: 1" />
+            android:text="Oven level: 1"
+            android:textAlignment="center" />
 
     </LinearLayout>
 
