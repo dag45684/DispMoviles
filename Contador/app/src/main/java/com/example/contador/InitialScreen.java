@@ -18,4 +18,15 @@ public class InitialScreen extends AppCompatActivity {
         Intent i = new Intent(this, MainActivity.class);
         startActivity(i);
     }
+    public void gotoQuit(View v){
+        finish();
+    }
+    public void gotoMainActivity(View v){
+        Intent i = new Intent(this, MainActivity.class);
+        startActivity(i);
+    }
+    public void gotoMainActivity(View v){
+        Intent i = new Intent(this, MainActivity.class);
+        startActivity(i);
+    }
 }
