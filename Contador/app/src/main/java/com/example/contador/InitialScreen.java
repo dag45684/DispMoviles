@@ -14,19 +14,19 @@ public class InitialScreen extends AppCompatActivity {
         setContentView(R.layout.activity_initial_screen);
     }
 
-    public void gotoMainActivity(View v){
-        Intent i = new Intent(this, MainActivity.class);
-        startActivity(i);
-    }
-    public void gotoQuit(View v){
+    public void gotoQuit(View v) {
         finish();
     }
     public void gotoMainActivity(View v){
         Intent i = new Intent(this, MainActivity.class);
         startActivity(i);
     }
-    public void gotoMainActivity(View v){
-        Intent i = new Intent(this, MainActivity.class);
+    public void gotoInfo(View v){
+        Intent i = new Intent(this, info.class);
+        startActivity(i);
+    }
+    public void gotoSettings(View v){
+        Intent i = new Intent(this, settings.class);
         startActivity(i);
     }
 }

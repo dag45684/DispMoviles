@@ -2,6 +2,7 @@ package com.example.contador;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
@@ -59,6 +60,10 @@ public class MainActivity extends AppCompatActivity {
         miku.startAnimation(boing);
         coinDisplayer();
 
+    }
+
+    public void backbutton(){
+        finish();
     }
 
     public void coinDisplayer() {
@@ -193,7 +198,7 @@ public class MainActivity extends AppCompatActivity {
             }
             else {
                //gray button here and set text to max
-                ovenlevel.setText("Oven  level: Max.");
+                ovenlevel.setText("Oven level: Max.");
             }
         }
     }

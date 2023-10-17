@@ -24,33 +24,37 @@
         app:layout_constraintVertical_bias="0.516"
         tools:ignore="SpeakableTextPresentCheck" />
 
-    <!-- Blue box under miku --> <TextView
-        android:text="Feed me!"
-        android:textAlignment="center"
+    <!-- Blue box under miku -->
+    <TextView
+        android:id="@+id/textView"
         android:layout_width="match_parent"
         android:layout_height="400dp"
         android:layout_marginTop="-10dp"
         android:background="#99E5DB"
+        android:text="Feed me!"
+        android:textAlignment="center"
         app:layout_constraintTop_toBottomOf="@+id/miku"
         tools:layout_editor_absoluteX="105dp" />
 
     <!-- Counter value -->
+
+    <!-- Yummy text popup on click -->
+
+    <!-- ScrollView -->
+
     <TextView
         android:id="@+id/countertext"
         android:layout_width="358dp"
         android:layout_height="109dp"
         android:text="10000"
-        android:textSize="70dp"
         android:textAlignment="center"
+        android:textSize="70dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.49"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.183" />
-
-    <!-- Yummy text popup on click -->
-
-    <!-- ScrollView -->
+        app:layout_constraintVertical_bias="0.204" />
 
     <TextView
         android:id="@+id/mikusay"
@@ -62,7 +66,7 @@
         app:layout_constraintHorizontal_bias="0.807"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.397" />
+        app:layout_constraintVertical_bias="0.587" />
 
     <ScrollView
         android:layout_width="378dp"
@@ -341,16 +345,19 @@
     </ScrollView>
 
     <!-- Layout to display the levels -->
+
     <LinearLayout
-        android:layout_width="408dp"
-        android:layout_height="48dp"
+        android:id="@+id/linearLayout"
+        android:layout_width="409dp"
+        android:layout_height="39dp"
         android:gravity="center_horizontal"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.023">
+        app:layout_constraintVertical_bias="0.352">
 
         <TextView
             android:id="@+id/cliclevel"
@@ -377,6 +384,19 @@
             android:textAlignment="center" />
 
     </LinearLayout>
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="51dp"
+        android:layout_height="43dp"
+        android:onClick="backbutton"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/back" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
