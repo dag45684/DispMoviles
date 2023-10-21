@@ -26,19 +26,19 @@ public class About extends AppCompatActivity {
                 new Info("Alumno",
                         "Carlos Manso",
                         "663148797 - Oviedo, Asturias",
-                        R.drawable.click),
+                        R.drawable.person),
                 new Info("Centro",
                         "IES Aramo",
                         "Oviedo, Asturias",
-                        R.drawable.click),
+                        R.drawable.house),
                 new Info("Asignatura",
                         "PMDM",
                         "Prog. Multimedia y Disp. Moviles",
-                        R.drawable.click),
+                        R.drawable.book),
                 new Info("Companeros",
                         "Nuria Valdes, Abel Alonso",
                         "Ignacio Fdez.",
-                        R.drawable.click));
+                        R.drawable.friends));
         rv.setAdapter(new Info_Adapter(l));
     }
 

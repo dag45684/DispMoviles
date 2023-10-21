@@ -388,5 +388,17 @@
         app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/back" />
 
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="115dp"
+        android:layout_height="84dp"
+        android:onClick="gotoStore"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.024"
+        app:srcCompat="@drawable/cart" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -2,6 +2,7 @@ package com.example.contador.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
@@ -33,6 +34,7 @@ public class Game extends AppCompatActivity {
     boolean boost = false;
     BigInteger coins = new BigInteger("9999");
     ScaleAnimation boing = new ScaleAnimation(0.7f, 1.2f, 0.7f, 1.2f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+    Bundle bundle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,22 +107,23 @@ public class Game extends AppCompatActivity {
         }).start();
     }
 
-    //idk how to do this
-    public void yummy(){
-        Random rnd = new Random();
-        float rndx = rnd.nextFloat();
-        float rndy = rnd.nextFloat();
-        new Thread(() -> {
-            runOnUiThread(() -> {
-                says.setX(rndx); //check how to implement this
-                says.setY(rndy);
-                says.setAlpha(1);
-                try {
-                    Thread.sleep(200);
-                } catch (InterruptedException e) {}
-                says.setAlpha(0);
-            });
-        }).start();
+    public void gotoStore (View v){
+        Intent i = new Intent(this, Upgrades.class);
+        i.putExtra("addition", addition);
+        i.putExtra("autosumvalue", autoSumValue);
+        i.putExtra("ovenspeed", ovenspeed);
+        i.putExtra("click_level", click_level);
+        i.putExtra("auto_level", auto_level);
+        i.putExtra("oven_level", oven_level);
+        i.putExtra("costemejora_auto", costemejora_auto);
+        i.putExtra("costemejora_click", costemejora_click);
+        i.putExtra("costemejora_oven", costemejora_oven);
+        i.putExtra("boost", boost);
+        i.putExtra("coins", coins.toString());
+        i.putExtra("clicklevel", clicklevel.getText());
+        i.putExtra("autoclicklevel", autoclicklevel.getText());
+        i.putExtra("ovenlevel", ovenlevel.getText());
+        startActivity(i);
     }
 
     public void levelup (View v){

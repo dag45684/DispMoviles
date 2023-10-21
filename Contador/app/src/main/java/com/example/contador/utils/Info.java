@@ -1,5 +1,4 @@
 package com.example.contador.utils;
-
 public class Info {
     private final String infotitle;
     private final String infomain;
