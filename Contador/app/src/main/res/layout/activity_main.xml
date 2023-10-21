@@ -5,10 +5,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".activities.Game">
 
 
-    <!-- Miku and button -->
     <ImageView
         android:id="@+id/miku"
         android:layout_width="202dp"
@@ -24,7 +23,6 @@
         app:layout_constraintVertical_bias="0.516"
         tools:ignore="SpeakableTextPresentCheck" />
 
-    <!-- Blue box under miku -->
     <TextView
         android:id="@+id/textView"
         android:layout_width="match_parent"
@@ -35,12 +33,6 @@
         android:textAlignment="center"
         app:layout_constraintTop_toBottomOf="@+id/miku"
         tools:layout_editor_absoluteX="105dp" />
-
-    <!-- Counter value -->
-
-    <!-- Yummy text popup on click -->
-
-    <!-- ScrollView -->
 
     <TextView
         android:id="@+id/countertext"
@@ -93,7 +85,6 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.971">
 
-            <!-- Implement temporal boosters for X seconds with threads that deactivates the thing-->
 
             <!-- block to increase auto click timing--><LinearLayout
                 android:layout_width="match_parent"
@@ -344,7 +335,6 @@
         </LinearLayout>
     </ScrollView>
 
-    <!-- Layout to display the levels -->
 
     <LinearLayout
         android:id="@+id/linearLayout"

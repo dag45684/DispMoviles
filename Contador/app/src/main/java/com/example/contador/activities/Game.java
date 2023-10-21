@@ -1,25 +1,23 @@
-package com.example.contador;
+package com.example.contador.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
-import android.view.ViewPropertyAnimator;
 import android.view.animation.Animation;
 import android.view.animation.ScaleAnimation;
-import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.example.contador.R;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.math.RoundingMode;
 import java.util.Random;
 
-public class MainActivity extends AppCompatActivity {
+public class Game extends AppCompatActivity {
 
     long addition = 100000;
     long autoSumValue = 1;

@@ -13,10 +13,16 @@
         android:theme="@style/Theme.Contador"
         tools:targetApi="31">
         <activity
-            android:name=".info"
+            android:name=".activities.Upgrades"
             android:exported="false" />
         <activity
-            android:name=".InitialScreen"
+            android:name=".activities.Settings"
+            android:exported="false" />
+        <activity
+            android:name=".activities.About"
+            android:exported="false" />
+        <activity
+            android:name=".activities.Welcome"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -25,8 +31,8 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MainActivity"
-            android:exported="true"></activity>
+            android:name=".activities.Game"
+            android:exported="true" />
     </application>
 
 </manifest>

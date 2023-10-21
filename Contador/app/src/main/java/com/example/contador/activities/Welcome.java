@@ -1,4 +1,4 @@
-package com.example.contador;
+package com.example.contador.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -6,7 +6,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-public class InitialScreen extends AppCompatActivity {
+import com.example.contador.R;
+
+public class Welcome extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,15 +20,15 @@ public class InitialScreen extends AppCompatActivity {
         finish();
     }
     public void gotoMainActivity(View v){
-        Intent i = new Intent(this, MainActivity.class);
+        Intent i = new Intent(this, Game.class);
         startActivity(i);
     }
     public void gotoInfo(View v){
-        Intent i = new Intent(this, info.class);
+        Intent i = new Intent(this, About.class);
         startActivity(i);
     }
     public void gotoSettings(View v){
-        Intent i = new Intent(this, settings.class);
+        Intent i = new Intent(this, Settings.class);
         startActivity(i);
     }
 }
