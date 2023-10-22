@@ -2,7 +2,10 @@ package com.example.contador.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.graphics.Color;
 import android.os.Bundle;
+import android.provider.CalendarContract;
+import android.content.Intent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -21,34 +24,36 @@ public class Upgrades extends AppCompatActivity {
     long addition, autoSumValue;
     int ovenspeed, click_level, auto_level, oven_level, costemejora_click, costemejora_auto, costemejora_oven;
     boolean boost;
-    String tempCoins, tempClicklevel, tempAutoclicklevel, tempOvenlevel;
     BigInteger coins;
     TextView counter, clicklevel, autoclicklevel, ovenlevel;
     List<Upgrade> l;
     Bundle bundle;
+    ListView lv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_upgrades);
         l = Arrays.asList(
-                new Upgrade("",
-                        "Increases click value",
+                new Upgrade("Increases click value",
+                        "100",
                         "Buy Click level",
                         R.drawable.click,
                         1),
-                new Upgrade("",
-                        "Increases autoclick value",
+                new Upgrade("Increases autoclick value",
+                        "100",
                         "Buy Autoclick level",
-                        R.drawable.click,
+                        R.drawable.autoclick,
                         2),
-                new Upgrade("-1000000",
-                        "Increases oven value",
+                new Upgrade("Increases speed of the autoclick",
+                        "-1000000",
                         "Buy Oven level",
-                        R.drawable.click,
+                        R.drawable.oven,
                         3)
         );
-        ListView lv = (ListView) findViewById(R.id.list);
+
+        lv = (ListView) findViewById(R.id.list);
         Upgrade_Adapter upgradeAdapter = new Upgrade_Adapter(this, R.layout.item_upgrade, l);
         lv.setAdapter(upgradeAdapter);
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener(){
@@ -56,8 +61,10 @@ public class Upgrades extends AppCompatActivity {
             public void onItemClick(AdapterView<?> av, View v, int i, long l){
                Upgrade upgrade = (Upgrade) av.getItemAtPosition(i);
                levelup(upgrade.getTag());
+               lv.invalidateViews();
             }
         });
+
         counter = (TextView) findViewById(R.id.coinsreal);
         bundle = getIntent().getExtras();
         addition = bundle.getLong("addition");
@@ -71,10 +78,29 @@ public class Upgrades extends AppCompatActivity {
         costemejora_oven = bundle.getInt("costemejora_oven");
         boost = bundle.getBoolean("boost");
         coins = new BigInteger(bundle.getString("coins"));
+
         coinDisplayer();
         autoSum();
     }
 
+    public void goback(){
+        Intent i = new Intent(this, Game.class);
+        i.putExtra("addition", addition);
+        i.putExtra("autosumvalue", autoSumValue);
+        i.putExtra("ovenspeed", ovenspeed);
+        i.putExtra("click_level", click_level);
+        i.putExtra("auto_level", auto_level);
+        i.putExtra("oven_level", oven_level);
+        i.putExtra("costemejora_auto", costemejora_auto);
+        i.putExtra("costemejora_click", costemejora_click);
+        i.putExtra("costemejora_oven", costemejora_oven);
+        i.putExtra("boost", boost);
+        i.putExtra("coins", coins.toString());
+        i.putExtra("clicklevel", clicklevel.getText());
+        i.putExtra("autoclicklevel", autoclicklevel.getText());
+        i.putExtra("ovenlevel", ovenlevel.getText());
+        startActivity(i);
+    }
 
     public void coinDisplayer() {
         counter.setText(coins.toString());
@@ -109,6 +135,7 @@ public class Upgrades extends AppCompatActivity {
     public void click_levelup() {
         long improvement = 10;
         if(coins.compareTo(new BigInteger(Integer.toString(costemejora_click))) == 1){
+            counter.setTextColor(Color.BLACK);
             click_level++;
             coins = coins.subtract(new BigInteger(Integer.toString(costemejora_click)));
             coinDisplayer();
@@ -125,13 +152,15 @@ public class Upgrades extends AppCompatActivity {
                 improvement = click_level * click_level;
             }
             addition += improvement;
-            l.get(1).setUpgradedetails(Integer.toString(costemejora_click));
+            l.get(0).setUpgradedetails(Integer.toString(costemejora_click));
         }
+        else counter.setTextColor(Color.RED);
     }
 
     public void auto_levelup () {
         long improvement = 1;
         if(coins.compareTo(new BigInteger(Integer.toString(costemejora_auto))) == 1){
+            counter.setTextColor(Color.BLACK);
             auto_level++;
             coins = coins.subtract(new BigInteger(Integer.toString(costemejora_auto)));
             coinDisplayer();
@@ -149,12 +178,14 @@ public class Upgrades extends AppCompatActivity {
                 improvement = auto_level * 12;
             }
             autoSumValue += improvement;
-            l.get(2).setUpgradedetails(Integer.toString(costemejora_click));
+            l.get(1).setUpgradedetails(Integer.toString(costemejora_auto));
         }
+        else counter.setTextColor(Color.RED);
     }
 
     public void oven_levelup (){
         if(coins.compareTo(new BigInteger(Integer.toString(costemejora_oven))) == 1){
+            counter.setTextColor(Color.BLACK);
             if (ovenspeed > 200){
                 coins = coins.subtract(new BigInteger(Integer.toString(costemejora_oven)));
                 coinDisplayer();
@@ -166,6 +197,7 @@ public class Upgrades extends AppCompatActivity {
                 ovenlevel.setText("Oven level: Max.");
             }
         }
+        else counter.setTextColor(Color.RED);
     }
 
     public void boost() {

@@ -50,6 +50,21 @@ public class Game extends AppCompatActivity {
         says = (TextView) findViewById(R.id.mikusay);
         miku = (ImageView) findViewById(R.id.miku);
         boing.setDuration(100);
+        bundle = getIntent().getExtras();
+        if (bundle != null){
+            addition = bundle.getLong("addition");
+            autoSumValue = bundle.getLong("autoSumValue");
+            ovenspeed = bundle.getInt("ovenspeed");
+            click_level = bundle.getInt("click_level");
+            auto_level = bundle.getInt("auto_level");
+            oven_level = bundle.getInt("oven_level");
+            costemejora_auto = bundle.getInt("costemejora_auto");
+            costemejora_click = bundle.getInt("costemejora_click");
+            costemejora_oven = bundle.getInt("costemejora_oven");
+            boost = bundle.getBoolean("boost");
+            coins = new BigInteger(bundle.getString("coins"));
+        }
+        coinDisplayer();
         autoSum();
     }
 
