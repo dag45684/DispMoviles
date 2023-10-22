@@ -1,31 +1,25 @@
 package com.example.contador.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.contador.R;
-import com.example.contador.utils.Info_Adapter;
 import com.example.contador.utils.Upgrade;
 import com.example.contador.utils.Upgrade_Adapter;
 
-import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.math.RoundingMode;
 import java.util.Arrays;
 import java.util.List;
 
 public class Upgrades extends AppCompatActivity {
 
-    int addition, autoSumValue, ovenspeed, click_level, auto_level, oven_level, costemejora_click, costemejora_auto, costemejora_oven;
+    long addition, autoSumValue;
+    int ovenspeed, click_level, auto_level, oven_level, costemejora_click, costemejora_auto, costemejora_oven;
     boolean boost;
     String tempCoins, tempClicklevel, tempAutoclicklevel, tempOvenlevel;
     BigInteger coins;
@@ -38,29 +32,36 @@ public class Upgrades extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_upgrades);
         l = Arrays.asList(
-                new Upgrade("Buy Click level",
+                new Upgrade("",
                         "Increases click value",
-                        "",
+                        "Buy Click level",
                         R.drawable.click,
                         1),
-                new Upgrade("Buy Autoclick level",
+                new Upgrade("",
                         "Increases autoclick value",
-                        "",
+                        "Buy Autoclick level",
                         R.drawable.click,
                         2),
-                new Upgrade("Buy Oven level",
+                new Upgrade("-1000000",
                         "Increases oven value",
-                        "-1000000",
+                        "Buy Oven level",
                         R.drawable.click,
                         3)
         );
         ListView lv = (ListView) findViewById(R.id.list);
         Upgrade_Adapter upgradeAdapter = new Upgrade_Adapter(this, R.layout.item_upgrade, l);
         lv.setAdapter(upgradeAdapter);
+        lv.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+            @Override
+            public void onItemClick(AdapterView<?> av, View v, int i, long l){
+               Upgrade upgrade = (Upgrade) av.getItemAtPosition(i);
+               levelup(upgrade.getTag());
+            }
+        });
         counter = (TextView) findViewById(R.id.coinsreal);
         bundle = getIntent().getExtras();
-        addition = bundle.getInt("addition");
-        autoSumValue = bundle.getInt("autoSumValue");
+        addition = bundle.getLong("addition");
+        autoSumValue = bundle.getLong("autoSumValue");
         ovenspeed = bundle.getInt("ovenspeed");
         click_level = bundle.getInt("click_level");
         auto_level = bundle.getInt("auto_level");
@@ -69,14 +70,11 @@ public class Upgrades extends AppCompatActivity {
         costemejora_click = bundle.getInt("costemejora_click");
         costemejora_oven = bundle.getInt("costemejora_oven");
         boost = bundle.getBoolean("boost");
+        coins = new BigInteger(bundle.getString("coins"));
         coinDisplayer();
         autoSum();
     }
 
-    public void onItemClick(AdapterView<?> adapterView, View v, int i, long l){
-        Upgrade upgrade = (Upgrade) adapterView.getItemAtPosition(i);
-        levelup(upgrade.getTag());
-    }
 
     public void coinDisplayer() {
         counter.setText(coins.toString());
@@ -113,6 +111,7 @@ public class Upgrades extends AppCompatActivity {
         if(coins.compareTo(new BigInteger(Integer.toString(costemejora_click))) == 1){
             click_level++;
             coins = coins.subtract(new BigInteger(Integer.toString(costemejora_click)));
+            coinDisplayer();
             if (click_level <= 10) {
                 costemejora_click = 100;
             } else if (click_level <= 20) {
@@ -135,6 +134,7 @@ public class Upgrades extends AppCompatActivity {
         if(coins.compareTo(new BigInteger(Integer.toString(costemejora_auto))) == 1){
             auto_level++;
             coins = coins.subtract(new BigInteger(Integer.toString(costemejora_auto)));
+            coinDisplayer();
             if (auto_level <= 10) {
                 costemejora_auto = 100;
                 improvement += auto_level;
@@ -157,6 +157,7 @@ public class Upgrades extends AppCompatActivity {
         if(coins.compareTo(new BigInteger(Integer.toString(costemejora_oven))) == 1){
             if (ovenspeed > 200){
                 coins = coins.subtract(new BigInteger(Integer.toString(costemejora_oven)));
+                coinDisplayer();
                 ovenspeed -= 200;
                 oven_level++;
             }
