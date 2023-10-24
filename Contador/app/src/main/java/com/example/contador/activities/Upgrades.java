@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.provider.CalendarContract;
 import android.content.Intent;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -29,6 +30,7 @@ public class Upgrades extends AppCompatActivity {
     List<Upgrade> l;
     Bundle bundle;
     ListView lv;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,8 +85,8 @@ public class Upgrades extends AppCompatActivity {
         autoSum();
     }
 
-    public void goback(){
-        Intent i = new Intent(this, Game.class);
+    public void goback(View v){
+        Intent i = new Intent(Upgrades.this, Game.class);
         i.putExtra("addition", addition);
         i.putExtra("autosumvalue", autoSumValue);
         i.putExtra("ovenspeed", ovenspeed);
@@ -96,9 +98,9 @@ public class Upgrades extends AppCompatActivity {
         i.putExtra("costemejora_oven", costemejora_oven);
         i.putExtra("boost", boost);
         i.putExtra("coins", coins.toString());
-        i.putExtra("clicklevel", clicklevel.getText());
-        i.putExtra("autoclicklevel", autoclicklevel.getText());
-        i.putExtra("ovenlevel", ovenlevel.getText());
+       // i.putExtra("clicklevel", clicklevel.getText());
+       // i.putExtra("autoclicklevel", autoclicklevel.getText());
+       // i.putExtra("ovenlevel", ovenlevel.getText());
         startActivity(i);
     }
 
