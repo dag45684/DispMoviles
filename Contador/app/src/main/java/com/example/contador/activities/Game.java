@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.ScaleAnimation;
@@ -32,9 +33,8 @@ public class Game extends AppCompatActivity {
     TextView counter, lvac, lvc, lvo, says, clicklevel, autoclicklevel, ovenlevel;
     ImageView miku;
     boolean boost = false;
-    BigInteger coins = new BigInteger("9999");
+    BigInteger coins;
     ScaleAnimation boing = new ScaleAnimation(0.7f, 1.2f, 0.7f, 1.2f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
-    Bundle bundle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,9 +49,11 @@ public class Game extends AppCompatActivity {
         ovenlevel = (TextView) findViewById(R.id.ovenlevel);
         says = (TextView) findViewById(R.id.mikusay);
         miku = (ImageView) findViewById(R.id.miku);
+        coins = new BigInteger("0");
         boing.setDuration(100);
-        bundle = getIntent().getExtras();
+        Bundle bundle = this.getIntent().getExtras();
         if (bundle != null){
+            Log.d("AAAA", "joder");
             addition = bundle.getLong("addition");
             autoSumValue = bundle.getLong("autoSumValue");
             ovenspeed = bundle.getInt("ovenspeed");
@@ -64,6 +66,7 @@ public class Game extends AppCompatActivity {
             boost = bundle.getBoolean("boost");
             coins = new BigInteger(bundle.getString("coins"));
         }
+
         coinDisplayer();
         autoSum();
     }
