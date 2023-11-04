@@ -30,6 +30,7 @@
         android:layout_marginTop="-10dp"
         android:background="#99E5DB"
         android:text="Feed me!"
+        android:textSize="45dp"
         android:textAlignment="center"
         app:layout_constraintTop_toBottomOf="@+id/miku"
         tools:layout_editor_absoluteX="105dp" />
@@ -46,7 +47,38 @@
         app:layout_constraintHorizontal_bias="0.49"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.204" />
+        app:layout_constraintVertical_bias="0.136" />
+
+    <TextView
+        android:id="@+id/autocliclevel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="20dp"
+        android:text="Autoclick level: 1 \n +1"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="202dp" />
+
+    <TextView
+        android:id="@+id/ovenlevel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="20dp"
+        android:text="Oven level: 1"
+        android:textAlignment="center"
+        app:layout_constraintStart_toEndOf="@+id/autocliclevel"
+        tools:layout_editor_absoluteY="210dp" />
+
+    <TextView
+        android:id="@+id/cliclevel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="20dp"
+        android:text="Click level: 1 \n +1"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toStartOf="@+id/autocliclevel"
+        tools:layout_editor_absoluteY="202dp" />
 
     <TextView
         android:id="@+id/mikusay"
@@ -59,281 +91,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.587" />
-
-    <ScrollView
-        android:layout_width="378dp"
-        android:layout_height="215dp"
-        android:background="#fbbdfc"
-        android:textAlignment="center"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.466"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.97">
-
-        <!-- The actual thing to scroll within the scrollview --> <LinearLayout
-            android:id="@+id/lup"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="#99FFFF"
-            android:orientation="vertical"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.478"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.971">
-
-
-            <!-- block to increase auto click timing--><LinearLayout
-                android:layout_width="match_parent"
-                android:layout_marginBottom="5dp"
-                android:layout_height="80dp"
-                android:gravity="center"
-                android:orientation="horizontal"
-                android:background="#FA9BDE"
-                android:onClick="levelup"
-                android:tag="1"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.498"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.275">
-
-                <ImageView
-                    android:layout_width="114dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="20dp"
-                    android:src="@drawable/click"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"/>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="80dp"
-                    android:gravity="center_vertical"
-                    android:orientation="vertical"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.498"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.275">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Buy click level"
-                        android:textAlignment="center"
-                        android:textSize="20dp"
-                        android:textStyle="bold"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.498"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintVertical_bias="0.275" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Increases Click value"
-                        android:textAlignment="center"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.498"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintVertical_bias="0.275" />
-
-                    <TextView
-                        android:id="@+id/lvc"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Price: 100"
-                        android:textAlignment="center"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.498"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintVertical_bias="0.275" />
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-            <!-- block to increase auto click --><LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="80dp"
-                android:gravity="center"
-                android:background="#FA9BDE"
-                android:tag="2"
-                android:orientation="horizontal"
-                android:layout_marginBottom="5dp"
-                android:onClick="levelup"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.498"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.275">
-
-                <ImageView
-                    android:layout_width="114dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="20dp"
-                    android:src="@drawable/autoclick"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="80dp"
-                    android:gravity="center_vertical"
-                    android:orientation="vertical"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.498"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.275">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Buy Autoclick level"
-                        android:textAlignment="center"
-                        android:textSize="19dp"
-                        android:textStyle="bold"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.498"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintVertical_bias="0.275" />
-
-                    <TextView
-                        android:id="@+id/t5"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Increases Autoclick value"
-                        android:textAlignment="center"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.498"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintVertical_bias="0.275" />
-
-                    <TextView
-                        android:id="@+id/lvac"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Price: 100"
-                        android:textAlignment="center"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.498"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintVertical_bias="0.275" />
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-            <!-- block to increase click --><LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="80dp"
-                android:gravity="center"
-                android:background="#FA9BDE"
-                android:orientation="horizontal"
-                android:tag="3"
-                android:layout_marginBottom="5dp"
-                android:onClick="levelup"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.498"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.275">
-
-                <ImageView
-                    android:layout_width="114dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="20dp"
-                    android:src="@drawable/oven"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="80dp"
-                    android:gravity="center_vertical"
-                    android:orientation="vertical"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.498"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.275">
-
-                    <TextView
-                        android:id="@+id/t1"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Buy Oven level"
-                        android:textAlignment="center"
-                        android:textSize="19dp"
-                        android:textStyle="bold"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.498"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintVertical_bias="0.275" />
-
-                    <TextView
-                        android:id="@+id/t2"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Increases the Autoclick speed"
-                        android:textAlignment="center"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.498"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintVertical_bias="0.275" />
-
-                    <TextView
-                        android:id="@+id/lvo"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Price: 1M"
-                        android:textAlignment="center"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.498"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintVertical_bias="0.275" />
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-        </LinearLayout>
-    </ScrollView>
 
 
     <LinearLayout
@@ -349,30 +106,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.352">
 
-        <TextView
-            android:id="@+id/cliclevel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingHorizontal="20dp"
-            android:text="Click level: 1 \n +1"
-            android:textAlignment="center" />
-
-        <TextView
-            android:id="@+id/autocliclevel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingHorizontal="20dp"
-            android:text="Autoclick level: 1 \n +1"
-            android:textAlignment="center" />
-
-        <TextView
-            android:id="@+id/ovenlevel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingHorizontal="20dp"
-            android:text="Oven level: 1"
-            android:textAlignment="center" />
-
     </LinearLayout>
 
     <ImageView
@@ -382,7 +115,6 @@
         android:onClick="backbutton"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0"
@@ -391,13 +123,13 @@
     <ImageView
         android:id="@+id/imageView3"
         android:layout_width="115dp"
-        android:layout_height="84dp"
+        android:layout_height="101dp"
         android:onClick="gotoStore"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.024"
+        app:layout_constraintVertical_bias="0.944"
         app:srcCompat="@drawable/cart" />
 
 

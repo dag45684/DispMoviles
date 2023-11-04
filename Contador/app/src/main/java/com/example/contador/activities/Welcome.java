@@ -33,7 +33,7 @@ public class Welcome extends AppCompatActivity {
 
     public void popSettings(View v) {
         AlertDialog.Builder dialog = new AlertDialog.Builder(this);
-        dialog.setMessage("Settings activity is under development.")
+        dialog.setMessage("Settings activity and dark theme configuration are still under development.")
                 .setIcon(R.drawable.settings)
                 .setNeutralButton("My Github", (_x, _y) -> {
                     Intent b = new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/cmgsk"));
