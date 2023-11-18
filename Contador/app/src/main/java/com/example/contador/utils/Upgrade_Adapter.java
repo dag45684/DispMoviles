@@ -1,6 +1,7 @@
 package com.example.contador.utils;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,7 +35,10 @@ public class Upgrade_Adapter extends ArrayAdapter<Upgrade> {
         ((TextView) convertView.findViewById(R.id.main)).setText(upgrade.getUpgrademain());
         ((TextView) convertView.findViewById(R.id.details)).setText(upgrade.getUpgradedetails());
         ((TextView) convertView.findViewById(R.id.title)).setText(upgrade.getUpgradetitle());
-       // convertView.findViewById(R.id.base).setBackgroundColor(upgrade.getColor());
+        ((TextView) convertView.findViewById(R.id.main)).setTextColor(Color.BLACK);
+        ((TextView) convertView.findViewById(R.id.details)).setTextColor(Color.BLACK);
+        ((TextView) convertView.findViewById(R.id.title)).setTextColor(Color.BLACK);
+        convertView.findViewById(R.id.base).setBackgroundColor(upgrade.getColor());
         return convertView;
     }
 

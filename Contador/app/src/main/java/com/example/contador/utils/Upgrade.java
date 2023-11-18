@@ -35,6 +35,7 @@ public class Upgrade {
     public int getTag() {
         return tag;
     }
+
     public int getColor(){ return color;}
     public void setUpgradedetails(String s){
         this.upgradedetails = s;

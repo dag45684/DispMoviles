@@ -20,6 +20,7 @@ import java.math.RoundingMode;
 
 public class Game extends AppCompatActivity {
 
+    boolean night = AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES;
     long valorSumaClick = 100000;
     long valorSumaAutoclick = 1;
     int valorOven = 2000;
@@ -34,9 +35,9 @@ public class Game extends AppCompatActivity {
     boolean boost = false;
     BigInteger coins;
     ScaleAnimation boing = new ScaleAnimation(0.7f, 1.2f, 0.7f, 1.2f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
-    int bgcolor = AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_NO ? Color.parseColor("#b5d6eb") : Color.parseColor("#5c5c5c");
-    int txtcolor = AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_NO ? Color.BLACK : Color.CYAN;
-    int assetscolor = AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_NO ? Color.parseColor("#f2f2f2") : Color.BLACK;
+    int bgcolor = night ? Color.parseColor("#5c5c5c") : Color.parseColor("#b5d6eb");
+    int txtcolor = night ? Color.CYAN : Color.BLACK;
+    int assetscolor = night ? Color.BLACK : Color.parseColor("#f2f2f2");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,11 +74,13 @@ public class Game extends AppCompatActivity {
             nivelClick = bundle.getInt("nivelClick");
             nivelAutoclick = bundle.getInt("nivelAutoclick");
             nivelOven = bundle.getInt("nivelOven");
+
             clicklevel.setText((clicklevel.getText().toString().replaceAll(" \\d+ ", "<-->")).replaceAll("<-->", ""+ nivelClick));
             autoclicklevel.setText((autoclicklevel.getText().toString().replaceAll("\\d+ ", "<-->")).replaceAll("<-->", ""+ nivelAutoclick));
             ovenlevel.setText((ovenlevel.getText().toString().replaceAll(" \\d+ ", "<-->")).replaceAll("<-->", ""+ nivelOven));
             clicklevel.setText((clicklevel.getText().toString().replaceAll("\\+\\d+", "<-->")).replaceAll("<-->", "+"+ valorSumaClick));
             autoclicklevel.setText((autoclicklevel.getText().toString().replaceAll("\\+\\d+", "<-->")).replaceAll("<-->", "+"+ valorSumaAutoclick));
+
             costemejoraAutoclick = bundle.getInt("costemejoraAutoclick");
             costemejoraClick = bundle.getInt("costemejoraClick");
             costemejoraOven = bundle.getInt("costemejoraOven");
@@ -92,7 +95,6 @@ public class Game extends AppCompatActivity {
     public void sum(View v) {
         counter.setTextColor(txtcolor);
         coins = coins.add(new BigInteger(Long.toString(valorSumaClick)));
-        //yummy();
         miku.startAnimation(boing);
         coinDisplayer();
 
@@ -100,17 +102,6 @@ public class Game extends AppCompatActivity {
 
     public void backbutton(){
         Intent i = new Intent(this, Welcome.class);
-        i.putExtra("addition", valorSumaClick);
-        i.putExtra("autosumvalue", valorSumaAutoclick);
-        i.putExtra("ovenspeed", valorOven);
-        i.putExtra("click_level", nivelClick);
-        i.putExtra("auto_level", nivelAutoclick);
-        i.putExtra("oven_level", nivelOven);
-        i.putExtra("costemejora_auto", costemejoraAutoclick);
-        i.putExtra("costemejora_click", costemejoraClick);
-        i.putExtra("costemejora_oven", costemejoraOven);
-        i.putExtra("boost", boost);
-        i.putExtra("coins", coins.toString());
         startActivity(i);
         finish();
     }

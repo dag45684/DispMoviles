@@ -23,6 +23,7 @@ import java.util.List;
 
 public class Upgrades extends AppCompatActivity {
 
+    boolean night = AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES;
     long valorSumaClick = 100000;
     long valorSumaAutoclick = 1;
     int valorOven = 2000;
@@ -32,25 +33,25 @@ public class Upgrades extends AppCompatActivity {
     int costemejoraClick = 100;
     int costemejoraOven = 1000000;
     int costemejoraAutoclick = 100;
-    boolean boost;
+    boolean boost = false;
     BigInteger coins;
     TextView counter, textoNivelClick, textoNivelAutoclick, textoNivelOven;
     List<Upgrade> l;
     Bundle bundle;
     ListView lv;
-    int bgcolor = AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_NO ? Color.parseColor("#b5d6eb") : Color.parseColor("#5c5c5c");
-    int txtcolor = AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_NO ? Color.BLACK : Color.CYAN;
-    int assetscolor = AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_NO ? Color.parseColor("#f2f2f2") : Color.BLACK;
+    int bgcolor = night ? Color.parseColor("#5c5c5c") : Color.parseColor("#b5d6eb");
+    int txtcolor = night ? Color.CYAN : Color.BLACK;
+    int assetscolor = night ? Color.CYAN : Color.parseColor("#f2f2f2");
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        View root = findViewById(R.id.upgrades);
-        root.setBackgroundColor(bgcolor);
-
         setContentView(R.layout.activity_upgrades);
+
+        View rootUpgrade = findViewById(R.id.upgrades);
+        rootUpgrade.setBackgroundColor(bgcolor);
+
         l = Arrays.asList(
                 new Upgrade("Increases click value",
                         "100",
@@ -83,8 +84,8 @@ public class Upgrades extends AppCompatActivity {
                lv.invalidateViews();
             }
         });
-
         counter = (TextView) findViewById(R.id.coinsreal);
+
         bundle = getIntent().getExtras();
         valorSumaClick = bundle.getLong("valorSumaClick");
         valorSumaAutoclick = bundle.getLong("valorSumaAutoclick");

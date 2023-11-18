@@ -7,23 +7,20 @@ import androidx.appcompat.app.AppCompatDelegate;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import com.example.contador.R;
 
 public class Welcome extends AppCompatActivity {
 
-    Bundle b;
+    boolean night = AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_NO;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_initial_screen);
 
-        if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_NO)
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-
-        b = getIntent().getExtras();
     }
 
     public void gotoQuit(View v) {
@@ -31,14 +28,11 @@ public class Welcome extends AppCompatActivity {
     }
     public void gotoMainActivity(View v){
         Intent i = new Intent(this, Game.class);
-        if (b != null) i.putExtras(b);
         startActivity(i);
-        finish();
     }
     public void gotoInfo(View v){
         Intent i = new Intent(this, About.class);
         startActivity(i);
-        finish();
     }
 
     public void popSettings(View v) {
@@ -51,9 +45,13 @@ public class Welcome extends AppCompatActivity {
                 })
                 .setNegativeButton("Quit", (_x, _y) -> finish())
                 .setPositiveButton("Swap mode", (_x, _y) -> {
-                    if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_NO){
+                    if (night){
+                        night=!night;
                         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-                    } else AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                    } else {
+                        night=!night;
+                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                    }
                 })
                 .show();
     }
