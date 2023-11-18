@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -33,6 +34,7 @@ public class Upgrade_Adapter extends ArrayAdapter<Upgrade> {
         ((TextView) convertView.findViewById(R.id.main)).setText(upgrade.getUpgrademain());
         ((TextView) convertView.findViewById(R.id.details)).setText(upgrade.getUpgradedetails());
         ((TextView) convertView.findViewById(R.id.title)).setText(upgrade.getUpgradetitle());
+       // convertView.findViewById(R.id.base).setBackgroundColor(upgrade.getColor());
         return convertView;
     }
 

@@ -1,11 +1,11 @@
 package com.example.contador.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.ScaleAnimation;
@@ -17,52 +17,70 @@ import com.example.contador.R;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.math.RoundingMode;
-import java.util.Random;
 
 public class Game extends AppCompatActivity {
 
-    long addition = 100000;
-    long autoSumValue = 1;
-    int ovenspeed = 2000;
-    int click_level = 1;
-    int auto_level = 1;
-    int oven_level = 1;
-    int costemejora_click = 100;
-    int costemejora_oven = 1000000;
-    int costemejora_auto = 100;
-    TextView counter, lvac, lvc, lvo, says, clicklevel, autoclicklevel, ovenlevel;
+    long valorSumaClick = 100000;
+    long valorSumaAutoclick = 1;
+    int valorOven = 2000;
+    int nivelClick = 1;
+    int nivelAutoclick = 1;
+    int nivelOven = 1;
+    int costemejoraClick = 100;
+    int costemejoraOven = 1000000;
+    int costemejoraAutoclick = 100;
+    TextView counter, says, clicklevel, autoclicklevel, ovenlevel, assetfeed;
     ImageView miku;
     boolean boost = false;
     BigInteger coins;
     ScaleAnimation boing = new ScaleAnimation(0.7f, 1.2f, 0.7f, 1.2f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+    int bgcolor = AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_NO ? Color.parseColor("#b5d6eb") : Color.parseColor("#5c5c5c");
+    int txtcolor = AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_NO ? Color.BLACK : Color.CYAN;
+    int assetscolor = AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_NO ? Color.parseColor("#f2f2f2") : Color.BLACK;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        View root = findViewById(R.id.game);
+        root.setBackgroundColor(bgcolor);
+
+        assetfeed = (TextView) findViewById(R.id.asset);
+        assetfeed.setTextColor(txtcolor);
+        assetfeed.setBackgroundColor(assetscolor);
+
         counter = (TextView) findViewById(R.id.countertext);
-        lvac = (TextView) findViewById(R.id.lvac);
-        lvc = (TextView) findViewById(R.id.lvc);
-        lvo = (TextView) findViewById(R.id.lvo);
         clicklevel = (TextView) findViewById(R.id.cliclevel);
         autoclicklevel = (TextView) findViewById(R.id.autocliclevel);
         ovenlevel = (TextView) findViewById(R.id.ovenlevel);
         says = (TextView) findViewById(R.id.mikusay);
         miku = (ImageView) findViewById(R.id.miku);
+        counter.setTextColor(txtcolor);
+        clicklevel.setTextColor(txtcolor);
+        autoclicklevel.setTextColor(txtcolor);
+        ovenlevel.setTextColor(txtcolor);
+        says.setTextColor(txtcolor);
+        miku = (ImageView) findViewById(R.id.miku);
         coins = new BigInteger("0");
         boing.setDuration(100);
+
         Bundle bundle = this.getIntent().getExtras();
         if (bundle != null){
-            Log.d("AAAA", "joder");
-            addition = bundle.getLong("addition");
-            autoSumValue = bundle.getLong("autoSumValue");
-            ovenspeed = bundle.getInt("ovenspeed");
-            click_level = bundle.getInt("click_level");
-            auto_level = bundle.getInt("auto_level");
-            oven_level = bundle.getInt("oven_level");
-            costemejora_auto = bundle.getInt("costemejora_auto");
-            costemejora_click = bundle.getInt("costemejora_click");
-            costemejora_oven = bundle.getInt("costemejora_oven");
+            valorSumaClick = bundle.getLong("valorSumaClick");
+            valorSumaAutoclick = bundle.getLong("valorSumaAutoclick");
+            valorOven = bundle.getInt("valorOven");
+            nivelClick = bundle.getInt("nivelClick");
+            nivelAutoclick = bundle.getInt("nivelAutoclick");
+            nivelOven = bundle.getInt("nivelOven");
+            clicklevel.setText((clicklevel.getText().toString().replaceAll(" \\d+ ", "<-->")).replaceAll("<-->", ""+ nivelClick));
+            autoclicklevel.setText((autoclicklevel.getText().toString().replaceAll("\\d+ ", "<-->")).replaceAll("<-->", ""+ nivelAutoclick));
+            ovenlevel.setText((ovenlevel.getText().toString().replaceAll(" \\d+ ", "<-->")).replaceAll("<-->", ""+ nivelOven));
+            clicklevel.setText((clicklevel.getText().toString().replaceAll("\\+\\d+", "<-->")).replaceAll("<-->", "+"+ valorSumaClick));
+            autoclicklevel.setText((autoclicklevel.getText().toString().replaceAll("\\+\\d+", "<-->")).replaceAll("<-->", "+"+ valorSumaAutoclick));
+            costemejoraAutoclick = bundle.getInt("costemejoraAutoclick");
+            costemejoraClick = bundle.getInt("costemejoraClick");
+            costemejoraOven = bundle.getInt("costemejoraOven");
             boost = bundle.getBoolean("boost");
             coins = new BigInteger(bundle.getString("coins"));
         }
@@ -72,8 +90,8 @@ public class Game extends AppCompatActivity {
     }
 
     public void sum(View v) {
-        counter.setTextColor(Color.rgb(0, 0, 0));
-        coins = coins.add(new BigInteger(Long.toString(addition)));
+        counter.setTextColor(txtcolor);
+        coins = coins.add(new BigInteger(Long.toString(valorSumaClick)));
         //yummy();
         miku.startAnimation(boing);
         coinDisplayer();
@@ -81,6 +99,19 @@ public class Game extends AppCompatActivity {
     }
 
     public void backbutton(){
+        Intent i = new Intent(this, Welcome.class);
+        i.putExtra("addition", valorSumaClick);
+        i.putExtra("autosumvalue", valorSumaAutoclick);
+        i.putExtra("ovenspeed", valorOven);
+        i.putExtra("click_level", nivelClick);
+        i.putExtra("auto_level", nivelAutoclick);
+        i.putExtra("oven_level", nivelOven);
+        i.putExtra("costemejora_auto", costemejoraAutoclick);
+        i.putExtra("costemejora_click", costemejoraClick);
+        i.putExtra("costemejora_oven", costemejoraOven);
+        i.putExtra("boost", boost);
+        i.putExtra("coins", coins.toString());
+        startActivity(i);
         finish();
     }
 
@@ -93,6 +124,14 @@ public class Game extends AppCompatActivity {
             counter.setText((new BigDecimal(coins).divide(new BigDecimal("1000000000"), 2, RoundingMode.FLOOR)).toString() + "B");
         } else if (coins.compareTo(new BigInteger("1000000000000")) == 1 && coins.compareTo(new BigInteger("1000000000000000")) != 1) {
             counter.setText((new BigDecimal(coins).divide(new BigDecimal("1000000000000"), 2, RoundingMode.FLOOR)).toString() + "T");
+        } else if (coins.compareTo(new BigInteger("1000000000000000")) == 1 && coins.compareTo(new BigInteger("1000000000000000000")) != 1) {
+            counter.setText((new BigDecimal(coins).divide(new BigDecimal("1000000000000000"), 2, RoundingMode.FLOOR)).toString() + "C");
+        } else if (coins.compareTo(new BigInteger("1000000000000000000")) == 1 && coins.compareTo(new BigInteger("1000000000000000000000")) != 1) {
+            counter.setText((new BigDecimal(coins).divide(new BigDecimal("1000000000000000000"), 2, RoundingMode.FLOOR)).toString() + "Q");
+        } else if (coins.compareTo(new BigInteger("1000000000000000000000")) == 1 && coins.compareTo(new BigInteger("1000000000000000000000000")) != 1) {
+            counter.setText((new BigDecimal(coins).divide(new BigDecimal("1000000000000000000000"), 2, RoundingMode.FLOOR)).toString() + "S");
+        } else if (coins.compareTo(new BigInteger("1000000000000000000000000")) == 1 && coins.compareTo(new BigInteger("1000000000000000000000000000")) != 1) {
+            counter.setText((new BigDecimal(coins).divide(new BigDecimal("1000000000000000000000000"), 2, RoundingMode.FLOOR)).toString() + "H");
         } else {
             counter.setText(coins.toString());
         }
@@ -101,10 +140,10 @@ public class Game extends AppCompatActivity {
     public void autoSum() {
         new Thread(() -> {
             while (true) {
-                coins = coins.add(new BigInteger(Long.toString(autoSumValue)));
+                coins = coins.add(new BigInteger(Long.toString(valorSumaAutoclick)));
                 runOnUiThread(() -> coinDisplayer());
                 try {
-                    Thread.sleep(ovenspeed);
+                    Thread.sleep(valorOven);
                 } catch (InterruptedException e) {
                 }
             }
@@ -113,113 +152,33 @@ public class Game extends AppCompatActivity {
 
     public void boost() {
         new Thread(() -> {
-            addition *= 2;
-            autoSumValue *= 2;
-            ovenspeed /= 2;
+            valorSumaClick *= 2;
+            valorSumaAutoclick *= 2;
+            valorOven /= 2;
             try {
                 Thread.sleep(5000);
             } catch (InterruptedException e) {}
-            addition /= 2;
-            autoSumValue /= 2;
-            ovenspeed *= 2;
+            valorSumaClick /= 2;
+            valorSumaAutoclick /= 2;
+            valorOven *= 2;
         }).start();
     }
 
     public void gotoStore (View v){
         Intent i = new Intent(this, Upgrades.class);
-        i.putExtra("addition", addition);
-        i.putExtra("autosumvalue", autoSumValue);
-        i.putExtra("ovenspeed", ovenspeed);
-        i.putExtra("click_level", click_level);
-        i.putExtra("auto_level", auto_level);
-        i.putExtra("oven_level", oven_level);
-        i.putExtra("costemejora_auto", costemejora_auto);
-        i.putExtra("costemejora_click", costemejora_click);
-        i.putExtra("costemejora_oven", costemejora_oven);
+        i.putExtra("valorSumaClick", valorSumaClick);
+        i.putExtra("valorSumaAutoclick", valorSumaAutoclick);
+        i.putExtra("valorOven", valorOven);
+        i.putExtra("nivelClick", nivelClick);
+        i.putExtra("nivelAutoclick", nivelAutoclick);
+        i.putExtra("nivelOven", nivelOven);
+        i.putExtra("costemejoraAutoclick", costemejoraAutoclick);
+        i.putExtra("costemejoraClick", costemejoraClick);
+        i.putExtra("costemejoraOven", costemejoraOven);
         i.putExtra("boost", boost);
         i.putExtra("coins", coins.toString());
-        i.putExtra("clicklevel", clicklevel.getText());
-        i.putExtra("autoclicklevel", autoclicklevel.getText());
-        i.putExtra("ovenlevel", ovenlevel.getText());
         startActivity(i);
-    }
-
-    public void levelup (View v){
-        switch (v.getTag().toString()){
-            case "1":
-                click_levelup();
-                break;
-            case "2":
-                auto_levelup();
-                break;
-            case "3":
-                oven_levelup();
-                break;
-        }
-    }
-
-    public void click_levelup() {
-        long improvement = 10;
-        if(coins.compareTo(new BigInteger(Integer.toString(costemejora_click))) == 1){
-            click_level++;
-            coins = coins.subtract(new BigInteger(Integer.toString(costemejora_click)));
-            if (click_level <= 10) {
-                costemejora_click = 100;
-            } else if (click_level <= 20) {
-                costemejora_click = 1000;
-                improvement += improvement+ click_level;
-            } else if (click_level <= 30) {
-                costemejora_click = 500000;
-                improvement *= click_level;
-            } else {
-                costemejora_click = 10000000;
-                improvement = click_level * click_level;
-            }
-            addition += improvement;
-            lvc.setText(lvc.getText().toString().replaceAll("\\d+", Integer.toString(costemejora_click)));
-            clicklevel.setText(clicklevel.getText().toString().replaceAll("[+]\\d+", "+"+addition));
-            clicklevel.setText(clicklevel.getText().toString().replaceAll("level: \\d+", "level: "+click_level));
-        }
-    }
-
-    public void auto_levelup () {
-        long improvement = 1;
-        if(coins.compareTo(new BigInteger(Integer.toString(costemejora_auto))) == 1){
-            auto_level++;
-            coins = coins.subtract(new BigInteger(Integer.toString(costemejora_auto)));
-            if (auto_level <= 10) {
-                costemejora_auto = 100;
-                improvement += auto_level;
-            } else if (auto_level <= 20) {
-                costemejora_auto = 1000;
-                improvement += auto_level * 2;
-            } else if (auto_level <= 30) {
-                costemejora_auto = 50000;
-                improvement *= auto_level;
-            } else {
-                costemejora_auto = 1000000;
-                improvement = auto_level * 12;
-            }
-            autoSumValue += improvement;
-            lvac.setText(lvac.getText().toString().replaceAll("\\d+", Integer.toString(costemejora_auto)));
-            autoclicklevel.setText(autoclicklevel.getText().toString().replaceAll("[+]\\d+", "+"+autoSumValue));
-            autoclicklevel.setText(autoclicklevel.getText().toString().replaceAll("level: \\d+", "level: "+auto_level));
-        }
-    }
-
-    public void oven_levelup (){
-        if(coins.compareTo(new BigInteger(Integer.toString(costemejora_oven))) == 1){
-            if (ovenspeed > 200){
-                coins = coins.subtract(new BigInteger(Integer.toString(costemejora_oven)));
-                ovenspeed -= 200;
-                oven_level++;
-                ovenlevel.setText(ovenlevel.getText().toString().replaceAll("\\d+", Integer.toString(oven_level)));
-            }
-            else {
-               //gray button here and set text to max
-                ovenlevel.setText("Oven level: Max.");
-            }
-        }
+        finish();
     }
 
 }

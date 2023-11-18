@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.example.contador.R;
@@ -14,6 +15,8 @@ import java.util.Arrays;
 import java.util.List;
 
 public class About extends AppCompatActivity {
+
+    Bundle b;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,9 +43,14 @@ public class About extends AppCompatActivity {
                         "Ignacio Fdez.",
                         R.drawable.friends));
         rv.setAdapter(new Info_Adapter(l));
+
+        b = getIntent().getExtras();
     }
 
     void back(){
+        Intent i = new Intent(this, Welcome.class);
+        i.putExtras(b);
+        startActivity(i);
         finish();
     }
 }

@@ -13,10 +13,17 @@ import com.example.contador.R;
 
 public class Welcome extends AppCompatActivity {
 
+    Bundle b;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_initial_screen);
+
+        if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_NO)
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+
+        b = getIntent().getExtras();
     }
 
     public void gotoQuit(View v) {
@@ -24,11 +31,14 @@ public class Welcome extends AppCompatActivity {
     }
     public void gotoMainActivity(View v){
         Intent i = new Intent(this, Game.class);
+        if (b != null) i.putExtras(b);
         startActivity(i);
+        finish();
     }
     public void gotoInfo(View v){
         Intent i = new Intent(this, About.class);
         startActivity(i);
+        finish();
     }
 
     public void popSettings(View v) {

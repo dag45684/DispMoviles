@@ -8,6 +8,7 @@
 
     <!-- block to increase auto click timing-->
     <LinearLayout
+        android:id="@+id/base"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"

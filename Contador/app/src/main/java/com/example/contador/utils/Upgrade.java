@@ -5,14 +5,16 @@ public class Upgrade {
     private  String upgradedetails;
     private final int tag;
     private final int image;
+    private final int color;
 
 
-    public Upgrade(String upgrademain, String upgradedetails, String upgradetitle, int image, int tag) {
+    public Upgrade(String upgrademain, String upgradedetails, String upgradetitle, int image, int tag, int color) {
         this.upgradetitle = upgradetitle;
         this.upgrademain = upgrademain;
         this.upgradedetails = upgradedetails;
         this.image = image;
         this.tag = tag;
+        this.color = color;
     }
 
     public String getUpgradetitle() {
@@ -33,7 +35,7 @@ public class Upgrade {
     public int getTag() {
         return tag;
     }
-
+    public int getColor(){ return color;}
     public void setUpgradedetails(String s){
         this.upgradedetails = s;
     }
