@@ -87,17 +87,9 @@ public class DB_Handler extends SQLiteOpenHelper {
         return data;
     }
 
-    public void updateCourse(String originalCourseName, String courseName, String courseDescription,
-                             String courseTracks, String courseDuration) {
-
+    public void rawUpdate(String qry) {
         SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues values = new ContentValues();
-        values.put(NAME_COL, courseName);
-        values.put(DURATION_COL, courseDuration);
-        values.put(DESCRIPTION_COL, courseDescription);
-        values.put(TRACKS_COL, courseTracks);
-        db.update(TABLE_NAME, values, "name=?", new String[]{originalCourseName});
-        db.close();
+        db.rawQuery(qry, null);
     }
 
 }

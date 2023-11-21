@@ -25,6 +25,6 @@ public class Jugador {
 
     public void setScore(BigInteger score) {
         this.score = score;
-
+        db.rawUpdate("Update Jugadores set score = " + score.toString() + " where id = " + this.id);
     }
 }
