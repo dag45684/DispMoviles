@@ -20,7 +20,11 @@ import java.math.RoundingMode;
 
 public class Game extends AppCompatActivity {
 
+    int idPlayer;
     boolean night = AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES;
+    int bgcolor = night ? Color.parseColor("#5c5c5c") : Color.parseColor("#b5d6eb");
+    int txtcolor = night ? Color.CYAN : Color.BLACK;
+    int assetscolor = night ? Color.BLACK : Color.parseColor("#f2f2f2");
     long valorSumaClick = 100000;
     long valorSumaAutoclick = 1;
     int valorOven = 2000;
@@ -35,9 +39,6 @@ public class Game extends AppCompatActivity {
     boolean boost = false;
     BigInteger coins;
     ScaleAnimation boing = new ScaleAnimation(0.7f, 1.2f, 0.7f, 1.2f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
-    int bgcolor = night ? Color.parseColor("#5c5c5c") : Color.parseColor("#b5d6eb");
-    int txtcolor = night ? Color.CYAN : Color.BLACK;
-    int assetscolor = night ? Color.BLACK : Color.parseColor("#f2f2f2");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,26 +69,29 @@ public class Game extends AppCompatActivity {
 
         Bundle bundle = this.getIntent().getExtras();
         if (bundle != null){
-            valorSumaClick = bundle.getLong("valorSumaClick");
-            valorSumaAutoclick = bundle.getLong("valorSumaAutoclick");
-            valorOven = bundle.getInt("valorOven");
-            nivelClick = bundle.getInt("nivelClick");
-            nivelAutoclick = bundle.getInt("nivelAutoclick");
-            nivelOven = bundle.getInt("nivelOven");
+            if(!bundle.getString("From").equals("Main")){
+                valorSumaClick = bundle.getLong("valorSumaClick");
+                valorSumaAutoclick = bundle.getLong("valorSumaAutoclick");
+                valorOven = bundle.getInt("valorOven");
+                nivelClick = bundle.getInt("nivelClick");
+                nivelAutoclick = bundle.getInt("nivelAutoclick");
+                nivelOven = bundle.getInt("nivelOven");
 
-            clicklevel.setText((clicklevel.getText().toString().replaceAll(" \\d+ ", "<-->")).replaceAll("<-->", ""+ nivelClick));
-            autoclicklevel.setText((autoclicklevel.getText().toString().replaceAll("\\d+ ", "<-->")).replaceAll("<-->", ""+ nivelAutoclick));
-            ovenlevel.setText((ovenlevel.getText().toString().replaceAll(" \\d+ ", "<-->")).replaceAll("<-->", ""+ nivelOven));
-            clicklevel.setText((clicklevel.getText().toString().replaceAll("\\+\\d+", "<-->")).replaceAll("<-->", "+"+ valorSumaClick));
-            autoclicklevel.setText((autoclicklevel.getText().toString().replaceAll("\\+\\d+", "<-->")).replaceAll("<-->", "+"+ valorSumaAutoclick));
+                clicklevel.setText((clicklevel.getText().toString().replaceAll(" \\d+ ", "<-->")).replaceAll("<-->", ""+ nivelClick));
+                autoclicklevel.setText((autoclicklevel.getText().toString().replaceAll("\\d+ ", "<-->")).replaceAll("<-->", ""+ nivelAutoclick));
+                ovenlevel.setText((ovenlevel.getText().toString().replaceAll(" \\d+ ", "<-->")).replaceAll("<-->", ""+ nivelOven));
+                clicklevel.setText((clicklevel.getText().toString().replaceAll("\\+\\d+", "<-->")).replaceAll("<-->", "+"+ valorSumaClick));
+                autoclicklevel.setText((autoclicklevel.getText().toString().replaceAll("\\+\\d+", "<-->")).replaceAll("<-->", "+"+ valorSumaAutoclick));
 
-            costemejoraAutoclick = bundle.getInt("costemejoraAutoclick");
-            costemejoraClick = bundle.getInt("costemejoraClick");
-            costemejoraOven = bundle.getInt("costemejoraOven");
-            boost = bundle.getBoolean("boost");
-            coins = new BigInteger(bundle.getString("coins"));
+                costemejoraAutoclick = bundle.getInt("costemejoraAutoclick");
+                costemejoraClick = bundle.getInt("costemejoraClick");
+                costemejoraOven = bundle.getInt("costemejoraOven");
+                boost = bundle.getBoolean("boost");
+                coins = new BigInteger(bundle.getString("coins"));
+            }else{
+                idPlayer = bundle.getInt("idPlayer");
+            }
         }
-
         coinDisplayer();
         autoSum();
     }
