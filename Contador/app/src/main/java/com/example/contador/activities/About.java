@@ -57,8 +57,6 @@ public class About extends AppCompatActivity {
                         R.drawable.friends,
                         assetscolor));
         rv.setAdapter(new Info_Adapter(l));
-
-
     }
 
     void back(View v){

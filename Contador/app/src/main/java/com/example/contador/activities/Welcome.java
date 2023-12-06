@@ -42,13 +42,15 @@ public class Welcome extends AppCompatActivity {
     int idPlayer = 0;
     TextView testdb;
     Bundle b;
-    int bgcolor, txtcolor,assetscolor;
+    int bgcolor, txtcolor, assetscolor;
     Button btnExit, btnInfo, btnSettings;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_initial_screen);
+
+        DB_Handler db = new DB_Handler(this);
 
         night = AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES;
         bgcolor = night ? Color.parseColor("#5c5c5c") : Color.parseColor("#b5d6eb");
@@ -65,21 +67,18 @@ public class Welcome extends AppCompatActivity {
         btnSettings = (Button) findViewById(R.id.btnSettings);
         btnSettings.setBackgroundColor(assetscolor);
 
-        DB_Handler db = new DB_Handler(this);
-
         b = getIntent().getExtras();
         if (b!=null){
             Log.i("semen", "HERE->"+b.getString("idPlayer"));
             idPlayer = Integer.parseInt(b.getString("idPlayer"));
         }
-
-
     }
 
     public void gotoQuit(View v) {
         finish();
         System.exit(0);
     }
+
     public void gotoMainActivity(View v){
         if (idPlayer != 0) {
             Intent i = new Intent(this, Game.class);
@@ -92,6 +91,7 @@ public class Welcome extends AppCompatActivity {
             finish();
         }
     }
+
     public void gotoInfo(View v){
         Intent i = new Intent(this, About.class);
         startActivity(i);
@@ -121,9 +121,5 @@ public class Welcome extends AppCompatActivity {
                     }
                 })
                 .show();
-    }
-    public void gotoSettings(View v){
-        Intent i = new Intent(this, Settings.class);
-        startActivity(i);
     }
 }

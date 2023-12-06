@@ -19,10 +19,10 @@ import java.util.ArrayList;
 
 public class Settings extends AppCompatActivity {
 
+    DB_Handler db;
     int idPlayer;
     Bundle bundle;
     TextView t;
-    DB_Handler db;
     Button s1, s2, s3, s4, s5;
     boolean night = AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES;
     int bgcolor = night ? Color.parseColor("#5c5c5c") : Color.parseColor("#b5d6eb");
@@ -53,10 +53,6 @@ public class Settings extends AppCompatActivity {
         s4.setBackgroundColor(assetscolor);
         s5 = (Button) findViewById(R.id.set5);
         s5.setBackgroundColor(assetscolor);
-
-
-
-
     }
 
     public void logout(View v){
@@ -75,10 +71,7 @@ public class Settings extends AppCompatActivity {
                     db = new DB_Handler(this);
                     db.delal();
                     t.setText("Database has been wiped and restored");
-                    Intent i = new Intent(this, Welcome.class);
-                    i.putExtra("idPlayer", "0");
-                    startActivity(i);
-                    finish();
+                    idPlayer = 0;
                 })
                 .setNegativeButton("No", (_x, _y) -> {return;} )
                 .show();

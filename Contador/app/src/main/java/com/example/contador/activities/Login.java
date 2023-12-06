@@ -44,7 +44,6 @@ public class Login extends AppCompatActivity {
                 confirm.setVisibility(isChecked ? View.VISIBLE : View.INVISIBLE);
                 newuser = isChecked;
             }
-
         });
     }
 
@@ -55,17 +54,20 @@ public class Login extends AppCompatActivity {
     }
 
     public void LogIn_SignUp(View v){
-
         DB_Handler db = new DB_Handler(this);
 
+        //try login -> no user
         if (!newuser && (db.readFromDB(String.format("nombre = '%s'", name.getText().toString())).size() == 0)){
             errormsg.setText("El usuario no existe");
             return;
         }
+        //try login or register
         if ((db.readFromDB(String.format("nombre = '%s'", name.getText().toString())).size() > 0)){
+            //try register -> name taken
             if(newuser){
                 errormsg.setText("El nombre de usuario ya existe.");
                 return;
+            //try login -> name available
             }else {
                 ArrayList<String> l = db.readFromDB(String.format("nombre = '%s'", name.getText().toString()));
                 Log.i("semen", l.get(0));
@@ -74,6 +76,7 @@ public class Login extends AppCompatActivity {
                     i.putExtra("idPlayer", l.get(0).split("\\s\\|\\s")[0]);
                     startActivity(i);
                     finish();
+                //try login -> wrong password
                 }else{
                     errormsg.setText("Password incorrecta");
                     Log.i("semen", Arrays.toString(l.get(0).split("\\s\\|\\s")));
@@ -81,8 +84,10 @@ public class Login extends AppCompatActivity {
                 }
             }
         }
+        //try register -> password doesnt match
         if(!confirm.getText().toString().equals(pass.getText().toString()) && newuser){
             errormsg.setText("La password no coincide");
+        //try register -> success
         } else {
             db.newEntry(name.getText().toString(), pass.getText().toString());
             Intent i = new Intent(this, Welcome.class);
@@ -95,7 +100,4 @@ public class Login extends AppCompatActivity {
             }
         }
     }
-
-
-
 }

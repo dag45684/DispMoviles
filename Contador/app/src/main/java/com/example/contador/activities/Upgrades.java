@@ -25,6 +25,9 @@ public class Upgrades extends AppCompatActivity {
 
     int idPlayer;
     boolean night = AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES;
+    int bgcolor = night ? Color.parseColor("#5c5c5c") : Color.parseColor("#b5d6eb");
+    int txtcolor = night ? Color.CYAN : Color.BLACK;
+    int assetscolor = night ? Color.CYAN : Color.parseColor("#f2f2f2");
     long valorSumaClick = 100000;
     long valorSumaAutoclick = 1;
     int valorOven = 2000;
@@ -40,10 +43,6 @@ public class Upgrades extends AppCompatActivity {
     List<Upgrade> l;
     Bundle bundle;
     ListView lv;
-    int bgcolor = night ? Color.parseColor("#5c5c5c") : Color.parseColor("#b5d6eb");
-    int txtcolor = night ? Color.CYAN : Color.BLACK;
-    int assetscolor = night ? Color.CYAN : Color.parseColor("#f2f2f2");
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +51,8 @@ public class Upgrades extends AppCompatActivity {
 
         View rootUpgrade = findViewById(R.id.upgrades);
         rootUpgrade.setBackgroundColor(bgcolor);
+
+        counter = (TextView) findViewById(R.id.coinsreal);
 
         l = Arrays.asList(
                 new Upgrade("Increases click value",
@@ -73,7 +74,6 @@ public class Upgrades extends AppCompatActivity {
                         3,
                         assetscolor)
         );
-
         lv = (ListView) findViewById(R.id.list);
         Upgrade_Adapter upgradeAdapter = new Upgrade_Adapter(this, R.layout.item_upgrade, l);
         lv.setAdapter(upgradeAdapter);
@@ -85,7 +85,6 @@ public class Upgrades extends AppCompatActivity {
                lv.invalidateViews();
             }
         });
-        counter = (TextView) findViewById(R.id.coinsreal);
 
         bundle = getIntent().getExtras();
         idPlayer = bundle.getInt("idPlayer");
@@ -218,7 +217,7 @@ public class Upgrades extends AppCompatActivity {
                 nivelOven++;
             }
             else {
-                //gray button here and set text to max
+                //TODO: gray button here and set text to max
                 textoNivelOven.setText("Oven level: Max.");
             }
         }
