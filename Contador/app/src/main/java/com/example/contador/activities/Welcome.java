@@ -46,6 +46,8 @@ public class Welcome extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_initial_screen);
 
+        DB_Handler db = new DB_Handler(this);
+
         b = getIntent().getExtras();
         if (b!=null){
             idPlayer = Integer.parseInt(b.getString("idPlayer"));

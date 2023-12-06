@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.EditText;
@@ -14,6 +15,7 @@ import com.example.contador.R;
 import com.example.contador.utils.DB_Handler;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Login extends AppCompatActivity {
 
@@ -52,7 +54,7 @@ public class Login extends AppCompatActivity {
         finish();
     }
 
-    public void LogIn_SignUp(){
+    public void LogIn_SignUp(View v){
 
         DB_Handler db = new DB_Handler(this);
 
@@ -66,13 +68,15 @@ public class Login extends AppCompatActivity {
                 return;
             }else {
                 ArrayList<String> l = db.readFromDB(String.format("nombre = '%s'", name.getText().toString()));
-                if (l.get(0).split(" | ")[0].equals(name.getText().toString()) && l.get(0).split(" | ")[1].equals(pass.getText().toString())){
+                Log.i("semen", l.get(0));
+                if (l.get(0).split("\\s\\|\\s")[1].equals(name.getText().toString()) && l.get(0).split("\\s\\|\\s")[2].equals(pass.getText().toString())){
                     Intent i = new Intent(this, Welcome.class);
-                    i.putExtra("idPlayer", l.get(0).split(" | ")[3]);
+                    i.putExtra("idPlayer", l.get(0).split("\\s\\|\\s")[0]);
                     startActivity(i);
                     finish();
                 }else{
                     errormsg.setText("Password incorrecta");
+                    Log.i("semen", Arrays.toString(l.get(0).split("\\s\\|\\s")));
                     return;
                 }
             }
@@ -80,7 +84,15 @@ public class Login extends AppCompatActivity {
         if(!confirm.getText().toString().equals(pass.getText().toString()) && newuser){
             errormsg.setText("La password no coincide");
         } else {
-            db.addNewToDB(name.getText().toString(), pass.getText().toString());
+            db.newEntry(name.getText().toString(), pass.getText().toString());
+            Intent i = new Intent(this, Welcome.class);
+            ArrayList<String> l = db.readFromDB(String.format("nombre = '%s'", name.getText().toString()));
+            if (l.size() > 0){
+                String temp = l.get(0).split("\\s\\|\\s")[0];
+                i.putExtra("idPlayer", temp);
+                startActivity(i);
+                finish();
+            }
         }
     }
 

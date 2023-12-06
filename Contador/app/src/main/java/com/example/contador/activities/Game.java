@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatDelegate;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.ScaleAnimation;
@@ -13,13 +14,34 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.contador.R;
+import com.example.contador.utils.DB_Handler;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.math.RoundingMode;
+import java.util.ArrayList;
+
+/*
+DB DATA LOADING:
+Returns: ArrayList of each row separated by " | "
+on readFromDB(filter) or data corresponds to:
+id: .get(n).split(" | ")[0]
+name: .get(n).split(" | ")[1]
+pass: .get(n).split(" | ")[2]
+score: .get(n).split(" | ")[3]
+suma: .get(n).split(" | ")[4]
+autosuma: .get(n).split(" | ")[5]
+oven: .get(n).split(" | ")[6]
+cliclvl: .get(n).split(" | ")[7]
+autolvl: .get(n).split(" | ")[8]
+ovenlvl: .get(n).split(" | ")[9]
+costeclick: .get(n).split(" | ")[10]
+costeauto: .get(n).split(" | ")[11]
+ */
 
 public class Game extends AppCompatActivity {
 
+    DB_Handler db;
     int idPlayer;
     boolean night = AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES;
     int bgcolor = night ? Color.parseColor("#5c5c5c") : Color.parseColor("#b5d6eb");
@@ -44,6 +66,8 @@ public class Game extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        db = new DB_Handler(this);
 
         View root = findViewById(R.id.game);
         root.setBackgroundColor(bgcolor);
@@ -90,6 +114,25 @@ public class Game extends AppCompatActivity {
                 coins = new BigInteger(bundle.getString("coins"));
             }else{
                 idPlayer = bundle.getInt("idPlayer");
+                ArrayList<String> load = db.readFromDB(String.format("id = '%d'", idPlayer));
+
+                Log.i("semen", load.get(0));
+
+                coins = new BigInteger(load.get(0).split("\\s\\|\\s")[3]);
+                valorSumaClick = Integer.parseInt(load.get(0).split("\\s\\|\\s")[4]);
+                valorSumaAutoclick = Integer.parseInt(load.get(0).split("\\s\\|\\s")[5]);
+                valorOven = Integer.parseInt(load.get(0).split("\\s\\|\\s")[6]);
+                nivelClick =Integer.parseInt(load.get(0).split("\\s\\|\\s")[7]);
+                nivelAutoclick =Integer.parseInt(load.get(0).split("\\s\\|\\s")[8]);
+                nivelOven =Integer.parseInt(load.get(0).split("\\s\\|\\s")[9]);
+                costemejoraClick = Integer.parseInt(load.get(0).split("\\s\\|\\s")[10]);
+                costemejoraAutoclick = Integer.parseInt(load.get(0).split("\\s\\|\\s")[11]);
+
+                clicklevel.setText((clicklevel.getText().toString().replaceAll(" \\d+ ", "<-->")).replaceAll("<-->", ""+ nivelClick));
+                autoclicklevel.setText((autoclicklevel.getText().toString().replaceAll("\\d+ ", "<-->")).replaceAll("<-->", ""+ nivelAutoclick));
+                ovenlevel.setText((ovenlevel.getText().toString().replaceAll(" \\d+ ", "<-->")).replaceAll("<-->", ""+ nivelOven));
+                clicklevel.setText((clicklevel.getText().toString().replaceAll("\\+\\d+", "<-->")).replaceAll("<-->", "+"+ valorSumaClick));
+                autoclicklevel.setText((autoclicklevel.getText().toString().replaceAll("\\+\\d+", "<-->")).replaceAll("<-->", "+"+ valorSumaAutoclick));
             }
         }
         coinDisplayer();
@@ -105,7 +148,22 @@ public class Game extends AppCompatActivity {
     }
 
     public void backbutton(){
+        StringBuilder sb = new StringBuilder();
+        sb.append("UPDATE Jugadores SET ");
+        sb.append("score="+coins);
+        sb.append(", suma=" + valorSumaClick);
+        sb.append(", autosuma="+ valorSumaAutoclick);
+        sb.append(", oven"+ valorOven);
+        sb.append(", ClickLvl" + nivelClick);
+        sb.append(", AutoLvl"+ nivelAutoclick);
+        sb.append(", OvenLvl"+ nivelOven);
+        sb.append(", CosteClick"+ costemejoraClick);
+        sb.append(", CosteAuto"+ costemejoraAutoclick);
+        sb.append(" WHERE id="+idPlayer);
+
+        db.rawUpdate(sb.toString());
         Intent i = new Intent(this, Welcome.class);
+        i.putExtra("idPlayer", idPlayer);
         startActivity(i);
         finish();
     }

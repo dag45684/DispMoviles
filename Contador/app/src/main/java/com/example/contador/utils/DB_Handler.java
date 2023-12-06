@@ -8,6 +8,24 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import java.util.ArrayList;
 
+/*
+DB DATA LOADING:
+Returns: ArrayList of each row separated by " | "
+on readFromDB(filter) or data corresponds to:
+id: .get(n).split(" | ")[0]
+name: .get(n).split(" | ")[1]
+pass: .get(n).split(" | ")[2]
+score: .get(n).split(" | ")[3]
+suma: .get(n).split(" | ")[4]
+autosuma: .get(n).split(" | ")[5]
+oven: .get(n).split(" | ")[6]
+cliclvl: .get(n).split(" | ")[7]
+autolvl: .get(n).split(" | ")[8]
+ovenlvl: .get(n).split(" | ")[9]
+costeclick: .get(n).split(" | ")[10]
+costeauto: .get(n).split(" | ")[11]
+ */
+
 public class DB_Handler extends SQLiteOpenHelper {
 
     private static final String DB_NAME = "clickergame";
@@ -15,7 +33,7 @@ public class DB_Handler extends SQLiteOpenHelper {
     private static final String TABLE_NAME = "jugadores";
     private static final String ID_COL = "id";
     private static final String NAME_COL = "nombre";
-    private static final String PASS_COL = "pasword";
+    private static final String PASS_COL = "password";
     private static final String SCORE_COL = "score";
     private static final String SUMA_COL = "suma";
     private static final String AUTOSUMA_COL = "autosuma";
@@ -66,6 +84,12 @@ public class DB_Handler extends SQLiteOpenHelper {
         values.put(COSTE_AUTO_COL, "100");
         db.insert(TABLE_NAME, null, values);
         db.close();
+    }
+
+    public void newEntry(String name, String pass) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL(String.format("INSERT INTO Jugadores (nombre, password, score, suma, autosuma, oven, Clicklvl, Autolvl, Ovenlvl, CosteClick, CosteAuto)" +
+                " VALUES ('%s', '%s', '0', '1', '1', '1000', '1', '1', '1', '100', '100')", name, pass));
     }
 
     @Override
@@ -137,12 +161,26 @@ public class DB_Handler extends SQLiteOpenHelper {
 
     public void rawUpdate(String qry) {
         SQLiteDatabase db = this.getWritableDatabase();
-        db.rawQuery(qry, null);
+        db.execSQL(qry);
     }
 
-    public void delal (){
+    public void delal (){ //debugging purposes
         SQLiteDatabase db = this.getWritableDatabase();
-        db.rawQuery("DELETE FROM Jugadores", null);
+        db.execSQL("DROP TABLE Jugadores");
+        String query = "CREATE TABLE IF NOT EXISTS " + TABLE_NAME + " ("
+                + ID_COL + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+                + NAME_COL + " TEXT,"
+                + PASS_COL + " TEXT,"
+                + SCORE_COL + " TEXT,"
+                + SUMA_COL + " TEXT,"
+                + AUTOSUMA_COL + " TEXT,"
+                + OVEN_COL + " TEXT,"
+                + NIVEL_CLICK_COL + " TEXT,"
+                + NIVEL_AUTO_COL + " TEXT,"
+                + NIVEL_OVEN_COL + " TEXT,"
+                + COSTE_CLICK_COL + " TEXT,"
+                + COSTE_AUTO_COL + " TEXT)";
+        db.execSQL(query);
     }
 
 }
