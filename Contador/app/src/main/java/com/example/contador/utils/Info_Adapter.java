@@ -1,9 +1,11 @@
 package com.example.contador.utils;
 
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -25,6 +27,10 @@ public class Info_Adapter extends RecyclerView.Adapter<Info_Adapter.ViewHolder> 
     @Override
     public Info_Adapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_info, parent, false);
+        ((TextView) v.findViewById(R.id.infotitle)).setTextColor(Color.BLACK);
+        ((TextView) v.findViewById(R.id.infomain)).setTextColor(Color.BLACK);
+        ((TextView) v.findViewById(R.id.infodetails)).setTextColor(Color.BLACK);
+        ((LinearLayout) v.findViewById(R.id.infoglobal)).setBackgroundColor(nodes.get(0).getColor());
         return new ViewHolder(v);
     }
 

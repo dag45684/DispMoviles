@@ -4,6 +4,103 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/material_dynamic_primary90"
+    android:id="@+id/settings"
     tools:context=".activities.Settings">
 
+    <Button
+        android:id="@+id/set1"
+        android:layout_width="453dp"
+        android:layout_height="58dp"
+        android:text="Log out"
+        android:backgroundTint="#f2f2f2"
+        android:textColor="@color/black"
+        android:onClick="logout"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.38"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.38" />
+
+    <Button
+        android:id="@+id/set2"
+        android:layout_width="451dp"
+        android:layout_height="57dp"
+        android:text="Delete database"
+        android:onClick="deletedb"
+        android:backgroundTint="#f2f2f2"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.511"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/set1"
+        app:layout_constraintVertical_bias="0.037" />
+
+    <Button
+        android:id="@+id/set5"
+        android:layout_width="451dp"
+        android:layout_height="57dp"
+        android:text="Delete current account"
+        android:onClick="deleteacc"
+        android:backgroundTint="#f2f2f2"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/set2"
+        app:layout_constraintVertical_bias="0.042" />
+
+    <Button
+        android:id="@+id/set3"
+        android:layout_width="451dp"
+        android:layout_height="57dp"
+        android:text="Watch current account"
+        android:onClick="getacc"
+        android:backgroundTint="#f2f2f2"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.45"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/set5"
+        app:layout_constraintVertical_bias="0.056" />
+
+    <Button
+        android:id="@+id/set4"
+        android:layout_width="451dp"
+        android:layout_height="57dp"
+        android:text="Watch number of registers"
+        android:onClick="getn"
+        android:backgroundTint="#f2f2f2"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.425"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/set3"
+        app:layout_constraintVertical_bias="0.069" />
+
+    <ImageView
+        android:id="@+id/imageView6"
+        android:layout_width="39dp"
+        android:layout_height="47dp"
+        android:layout_marginTop="16dp"
+        android:onClick="back"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/back" />
+
+    <TextView
+        android:id="@+id/setView"
+        android:layout_width="397dp"
+        android:layout_height="128dp"
+        android:layout_marginTop="88dp"
+        android:text=""
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
