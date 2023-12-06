@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/material_dynamic_primary90"
+    android:id="@+id/settings"
     tools:context=".activities.Settings">
 
     <Button
@@ -86,6 +87,7 @@
         android:layout_width="39dp"
         android:layout_height="47dp"
         android:layout_marginTop="16dp"
+        android:onClick="back"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"

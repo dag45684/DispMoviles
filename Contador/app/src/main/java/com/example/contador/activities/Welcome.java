@@ -5,10 +5,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.contador.R;
@@ -36,20 +38,38 @@ costeauto: .get(n).split(" | ")[11]
 
 public class Welcome extends AppCompatActivity {
 
-    boolean night = AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_NO;
+    boolean night;
     int idPlayer = 0;
     TextView testdb;
     Bundle b;
+    int bgcolor, txtcolor,assetscolor;
+    Button btnExit, btnInfo, btnSettings;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_initial_screen);
 
+        night = AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES;
+        bgcolor = night ? Color.parseColor("#5c5c5c") : Color.parseColor("#b5d6eb");
+        txtcolor = night ? Color.CYAN : Color.BLACK;
+        assetscolor = night ? Color.CYAN : Color.parseColor("#f2f2f2");
+
+        View rootUpgrade = findViewById(R.id.mainscr);
+        rootUpgrade.setBackgroundColor(bgcolor);
+
+        btnExit = (Button) findViewById(R.id.btnExit);
+        btnExit.setBackgroundColor(assetscolor);
+        btnInfo = (Button) findViewById(R.id.btnInfo);
+        btnInfo.setBackgroundColor(assetscolor);
+        btnSettings = (Button) findViewById(R.id.btnSettings);
+        btnSettings.setBackgroundColor(assetscolor);
+
         DB_Handler db = new DB_Handler(this);
 
         b = getIntent().getExtras();
         if (b!=null){
+            Log.i("semen", "HERE->"+b.getString("idPlayer"));
             idPlayer = Integer.parseInt(b.getString("idPlayer"));
         }
 
@@ -79,14 +99,17 @@ public class Welcome extends AppCompatActivity {
 
     public void popSettings(View v) {
         AlertDialog.Builder dialog = new AlertDialog.Builder(this);
-        dialog.setMessage("Settings activity and dark theme configuration are still under development.")
+        dialog.setMessage("Dark theme configuration is still under development. Sometimes it will deactivate, and usually takes two trys to activate it.")
                 .setIcon(R.drawable.settings)
                 .setNeutralButton("My Github", (_x, _y) -> {
                     Intent b = new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/cmgsk"));
                     startActivity(b);
                 })
                 .setNegativeButton("Settings", (_x, _y) -> {
-
+                    Intent i = new Intent(this, Settings.class);
+                    i.putExtra("idPlayer", idPlayer);
+                    startActivity(i);
+                    finish();
                 })
                 .setPositiveButton("Swap mode", (_x, _y) -> {
                     if (night){

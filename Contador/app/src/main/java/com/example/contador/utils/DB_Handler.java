@@ -128,6 +128,20 @@ public class DB_Handler extends SQLiteOpenHelper {
         return data;
     }
 
+    public String bitFromDB(String qry){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor pointer = db.rawQuery(qry, null);
+        ArrayList<String> data = new ArrayList<>();
+        if (pointer.moveToFirst()) {
+            try {
+                int temp = pointer.getInt(0);
+                pointer.close();
+                return Integer.toString(temp);//Id
+            }catch (Exception e){return null;}
+        }
+        return null;
+    }
+
     public ArrayList<String> rawQuery (String qry){
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor pointer = db.rawQuery(qry, null);

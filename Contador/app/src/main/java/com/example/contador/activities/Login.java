@@ -48,7 +48,7 @@ public class Login extends AppCompatActivity {
         });
     }
 
-    public void gotoBack (){
+    public void gotoBack (View v){
         Intent i = new Intent(this, Welcome.class);
         startActivity(i);
         finish();
