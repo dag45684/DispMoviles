@@ -56,7 +56,7 @@ public class Game extends AppCompatActivity {
     int costemejoraClick = 100;
     int costemejoraOven = 1000000;
     int costemejoraAutoclick = 100;
-    TextView counter, says, clicklevel, autoclicklevel, ovenlevel, assetfeed;
+    TextView counter, says, clicklevel, autoclicklevel, ovenlevel, assetfeed, playingAs;
     ImageView miku;
     boolean boost = false;
     BigInteger coins;
@@ -81,6 +81,7 @@ public class Game extends AppCompatActivity {
         autoclicklevel = (TextView) findViewById(R.id.autocliclevel);
         ovenlevel = (TextView) findViewById(R.id.ovenlevel);
         says = (TextView) findViewById(R.id.mikusay);
+        playingAs = (TextView) findViewById(R.id.PlayingAs);
         miku = (ImageView) findViewById(R.id.miku);
         counter.setTextColor(txtcolor);
         clicklevel.setTextColor(txtcolor);
@@ -94,6 +95,7 @@ public class Game extends AppCompatActivity {
         Bundle bundle = this.getIntent().getExtras();
         if (bundle != null){
             if(!bundle.getString("From").equals("Main")){
+                idPlayer = bundle.getInt("idPlayer");
                 valorSumaClick = bundle.getLong("valorSumaClick");
                 valorSumaAutoclick = bundle.getLong("valorSumaAutoclick");
                 valorOven = bundle.getInt("valorOven");
@@ -116,6 +118,7 @@ public class Game extends AppCompatActivity {
                 idPlayer = bundle.getInt("idPlayer");
                 ArrayList<String> load = db.readFromDB(String.format("id = '%d'", idPlayer));
 
+                playingAs.setText("Playing as: " + load.get(0).split("\\s\\|\\s")[1]);
                 Log.i("semen", load.get(0));
 
                 coins = new BigInteger(load.get(0).split("\\s\\|\\s")[3]);
@@ -147,24 +150,24 @@ public class Game extends AppCompatActivity {
 
     }
 
-    public void backbutton(){
+    public void backbutton(View v){
         StringBuilder sb = new StringBuilder();
         sb.append("UPDATE Jugadores SET ");
         sb.append("score="+coins);
         sb.append(", suma=" + valorSumaClick);
         sb.append(", autosuma="+ valorSumaAutoclick);
-        sb.append(", oven"+ valorOven);
-        sb.append(", ClickLvl" + nivelClick);
-        sb.append(", AutoLvl"+ nivelAutoclick);
-        sb.append(", OvenLvl"+ nivelOven);
-        sb.append(", CosteClick"+ costemejoraClick);
-        sb.append(", CosteAuto"+ costemejoraAutoclick);
+        sb.append(", oven="+ valorOven);
+        sb.append(", ClickLvl=" + nivelClick);
+        sb.append(", AutoLvl="+ nivelAutoclick);
+        sb.append(", OvenLvl="+ nivelOven);
+        sb.append(", CosteClick="+ costemejoraClick);
+        sb.append(", CosteAuto="+ costemejoraAutoclick);
         sb.append(" WHERE id="+idPlayer);
-
+        Log.i("sexo", sb.toString());
         db.rawUpdate(sb.toString());
-        Intent i = new Intent(this, Welcome.class);
-        i.putExtra("idPlayer", idPlayer);
-        startActivity(i);
+        ArrayList<String> load = db.readFromDB(String.format("id = '%d'", idPlayer));
+        Log.i("conardo", load.get(0));
+
         finish();
     }
 
@@ -219,6 +222,7 @@ public class Game extends AppCompatActivity {
 
     public void gotoStore (View v){
         Intent i = new Intent(this, Upgrades.class);
+        i.putExtra("idPlayer", idPlayer);
         i.putExtra("valorSumaClick", valorSumaClick);
         i.putExtra("valorSumaAutoclick", valorSumaAutoclick);
         i.putExtra("valorOven", valorOven);

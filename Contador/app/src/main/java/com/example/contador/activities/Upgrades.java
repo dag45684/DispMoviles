@@ -23,6 +23,7 @@ import java.util.List;
 
 public class Upgrades extends AppCompatActivity {
 
+    int idPlayer;
     boolean night = AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES;
     long valorSumaClick = 100000;
     long valorSumaAutoclick = 1;
@@ -87,6 +88,7 @@ public class Upgrades extends AppCompatActivity {
         counter = (TextView) findViewById(R.id.coinsreal);
 
         bundle = getIntent().getExtras();
+        idPlayer = bundle.getInt("idPlayer");
         valorSumaClick = bundle.getLong("valorSumaClick");
         valorSumaAutoclick = bundle.getLong("valorSumaAutoclick");
         valorOven = bundle.getInt("valorOven");
@@ -108,6 +110,8 @@ public class Upgrades extends AppCompatActivity {
 
     public void goback(View v){
         Intent i = new Intent(Upgrades.this, Game.class);
+        i.putExtra("idPlayer", idPlayer);
+        i.putExtra("From", "Upgrades");
         i.putExtra("valorSumaClick", valorSumaClick);
         i.putExtra("valorSumaAutoclick", valorSumaAutoclick);
         i.putExtra("valorOven", valorOven);
@@ -117,7 +121,7 @@ public class Upgrades extends AppCompatActivity {
         i.putExtra("costemejoraAutoclick", costemejoraAutoclick);
         i.putExtra("costemejoraClick", costemejoraClick);
         i.putExtra("costemejoraOven", costemejoraOven);
-        i.putExtra("boost", boost);
+        //i.putExtra("boost", boost);
         i.putExtra("coins", coins.toString());
         startActivity(i);
         finish();

@@ -58,6 +58,7 @@ public class Welcome extends AppCompatActivity {
 
     public void gotoQuit(View v) {
         finish();
+        System.exit(0);
     }
     public void gotoMainActivity(View v){
         if (idPlayer != 0) {
@@ -84,7 +85,9 @@ public class Welcome extends AppCompatActivity {
                     Intent b = new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/cmgsk"));
                     startActivity(b);
                 })
-                .setNegativeButton("Quit", (_x, _y) -> finish())
+                .setNegativeButton("Settings", (_x, _y) -> {
+
+                })
                 .setPositiveButton("Swap mode", (_x, _y) -> {
                     if (night){
                         night=!night;
