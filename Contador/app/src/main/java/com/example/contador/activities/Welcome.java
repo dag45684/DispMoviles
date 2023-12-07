@@ -18,23 +18,6 @@ import com.example.contador.utils.DB_Handler;
 
 import java.util.ArrayList;
 
-/*
-DB DATA LOADING:
-Returns: ArrayList of each row separated by " | "
-on readFromDB(filter) or data corresponds to:
-id: .get(n).split(" | ")[0]
-name: .get(n).split(" | ")[1]
-pass: .get(n).split(" | ")[2]
-score: .get(n).split(" | ")[3]
-suma: .get(n).split(" | ")[4]
-autosuma: .get(n).split(" | ")[5]
-oven: .get(n).split(" | ")[6]
-cliclvl: .get(n).split(" | ")[7]
-autolvl: .get(n).split(" | ")[8]
-ovenlvl: .get(n).split(" | ")[9]
-costeclick: .get(n).split(" | ")[10]
-costeauto: .get(n).split(" | ")[11]
- */
 
 public class Welcome extends AppCompatActivity {
 
@@ -53,14 +36,17 @@ public class Welcome extends AppCompatActivity {
 
         DB_Handler db = new DB_Handler(this);
 
+        //define nightmode
         night = AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES;
         bgcolor = night ? Color.parseColor("#5c5c5c") : Color.parseColor("#b5d6eb");
         txtcolor = night ? Color.CYAN : Color.BLACK;
         assetscolor = night ? Color.CYAN : Color.parseColor("#f2f2f2");
 
+        //BG color
         View rootUpgrade = findViewById(R.id.mainscr);
         rootUpgrade.setBackgroundColor(bgcolor);
 
+        //define elements and set them properly
         btnExit = (Button) findViewById(R.id.btnExit);
         btnExit.setBackgroundColor(assetscolor);
         btnInfo = (Button) findViewById(R.id.btnInfo);
@@ -70,6 +56,7 @@ public class Welcome extends AppCompatActivity {
 
         devmode = false;
 
+        //unpack the bundle
         b = getIntent().getExtras();
         if (b!=null){
             idPlayer = Integer.parseInt(b.getString("idPlayer"));
@@ -77,11 +64,13 @@ public class Welcome extends AppCompatActivity {
         }
     }
 
+    //exit app
     public void gotoQuit(View v) {
         finish();
         System.exit(0);
     }
 
+    //Start the game if youre logged. Go to login page if you're not logged
     public void gotoMainActivity(View v){
         if (idPlayer != 0) {
             Intent i = new Intent(this, Game.class);
@@ -96,11 +85,13 @@ public class Welcome extends AppCompatActivity {
         }
     }
 
+    //Go to info
     public void gotoInfo(View v){
         Intent i = new Intent(this, About.class);
         startActivity(i);
     }
 
+    //pop the window for settings, github and night mode
     public void popSettings(View v) {
         AlertDialog.Builder dialog = new AlertDialog.Builder(this);
         dialog.setMessage("Dark theme configuration is still under development. Sometimes it will deactivate, and usually takes two trys to activate it.")

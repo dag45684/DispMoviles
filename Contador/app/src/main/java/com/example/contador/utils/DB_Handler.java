@@ -11,6 +11,7 @@ import java.util.ArrayList;
 /*
 DB DATA LOADING:
 Returns: ArrayList of each row separated by " | "
+
 on readFromDB(filter) or data corresponds to:
 id: .get(n).split(" | ")[0]
 name: .get(n).split(" | ")[1]
@@ -24,6 +25,11 @@ autolvl: .get(n).split(" | ")[8]
 ovenlvl: .get(n).split(" | ")[9]
 costeclick: .get(n).split(" | ")[10]
 costeauto: .get(n).split(" | ")[11]
+
+Pd: Algunos metodos son una forma un poco vaga o poco elegantes de hacerlos,
+pero no tenia mucho tiempo para dejarlo tod funcionando e investigar la API de
+sqlite.
+
  */
 
 public class DB_Handler extends SQLiteOpenHelper {
@@ -48,6 +54,7 @@ public class DB_Handler extends SQLiteOpenHelper {
         super(context, DB_NAME, null, DB_VERSION);
     }
 
+    //Crea la tabla solo si no existe al instanciar una clase de DB_Handler.
     @Override
     public void onCreate(SQLiteDatabase db) {
         String query = "CREATE TABLE IF NOT EXISTS " + TABLE_NAME + " ("
@@ -67,6 +74,7 @@ public class DB_Handler extends SQLiteOpenHelper {
         db.execSQL(query);
     }
 
+    //Por algun motivo da problemas, asi que utilizo el siguiente.
     public void addNewToDB(String name, String pass) {
 
         SQLiteDatabase db = this.getWritableDatabase();
@@ -86,10 +94,18 @@ public class DB_Handler extends SQLiteOpenHelper {
         db.close();
     }
 
+    //TODO: Encriptar passwd
+    //Inserta un nuevo player con settings default, nombre y passwd.
     public void newEntry(String name, String pass) {
         SQLiteDatabase db = this.getWritableDatabase();
-        db.execSQL(String.format("INSERT INTO Jugadores (nombre, password, score, suma, autosuma, oven, Clicklvl, Autolvl, Ovenlvl, CosteClick, CosteAuto)" +
-                " VALUES ('%s', '%s', '0', '1', '1', '1000', '1', '1', '1', '100', '100')", name, pass));
+        db.execSQL(String.format("INSERT INTO Jugadores (nombre," +
+                " password, score," +
+                " suma, autosuma, oven," +
+                " Clicklvl, Autolvl, Ovenlvl," +
+                " CosteClick, CosteAuto)" +
+                " VALUES ('%s', '%s', '0', '1', " +
+                "'1', '1000', '1', '1', '1', " +
+                "'100', '100')", name, pass));
     }
 
     @Override
@@ -99,6 +115,8 @@ public class DB_Handler extends SQLiteOpenHelper {
         onCreate(db);
     }
 
+    //Lee todos los elementos de la db dado un filtro opcional y los devuelve en un unico string formateado
+    //para el parseo.
     public ArrayList<String> readFromDB(String filter)
     {
         filter = filter == null ? "1=1" : filter;
@@ -128,6 +146,7 @@ public class DB_Handler extends SQLiteOpenHelper {
         return data;
     }
 
+    //Dada una query que solo devuelva un elemento, lo devuelve.
     public String bitFromDB(String qry){
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor pointer = db.rawQuery(qry, null);
@@ -142,6 +161,7 @@ public class DB_Handler extends SQLiteOpenHelper {
         return null;
     }
 
+    //Raw query que devuelve desde * hasta 1 solo elemento.
     public ArrayList<String> rawQuery (String qry){
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor pointer = db.rawQuery(qry, null);
@@ -173,12 +193,15 @@ public class DB_Handler extends SQLiteOpenHelper {
         return data;
     }
 
+    //En realidad acepta cualquier sentencia SQL, pero no devuelve nada, por lo que su funcion es
+    //updatear y deletear elementos, o alterar propiedades.
     public void rawUpdate(String qry) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL(qry);
     }
 
-    public void delal (){ //debugging purposes
+    //debugging purposes o reseteo de la dbb
+    public void delal (){
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL("DROP TABLE Jugadores");
         String query = "CREATE TABLE IF NOT EXISTS " + TABLE_NAME + " ("

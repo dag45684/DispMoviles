@@ -39,9 +39,11 @@ public class Login extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        //Bg Color
         View root = findViewById(R.id.logscreen);
         root.setBackgroundColor(bgcolor);
 
+        //initialize elements
         confirm = (EditText) findViewById(R.id.confirm);
         confirm.setVisibility(View.INVISIBLE);
         name = (EditText) findViewById(R.id.name);
@@ -50,6 +52,7 @@ public class Login extends AppCompatActivity {
         go = (Button) findViewById(R.id.okbutton);
         isnew = (Switch) findViewById(R.id.isnew);
 
+        //Config elements
         confirm.setBackgroundColor(txtcolor);
         pass.setBackgroundColor(txtcolor);
         name.setBackgroundColor(txtcolor);
@@ -61,6 +64,7 @@ public class Login extends AppCompatActivity {
         go.setTextColor(txtcolor);
         errormsg.setTextColor(txtcolor);
 
+        //Detect if the switch has been changed.
         isnew.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -70,12 +74,14 @@ public class Login extends AppCompatActivity {
         });
     }
 
+    //Backbutton
     public void gotoBack (View v){
         Intent i = new Intent(this, Welcome.class);
         startActivity(i);
         finish();
     }
 
+    //Login button logic
     public void LogIn_SignUp(View v){
         DB_Handler db = new DB_Handler(this);
 

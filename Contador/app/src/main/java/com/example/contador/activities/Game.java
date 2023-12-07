@@ -21,23 +21,6 @@ import java.math.BigInteger;
 import java.math.RoundingMode;
 import java.util.ArrayList;
 
-/*
-DB DATA LOADING:
-Returns: ArrayList of each row separated by " | "
-on readFromDB(filter) or data corresponds to:
-id: .get(n).split(" | ")[0]
-name: .get(n).split(" | ")[1]
-pass: .get(n).split(" | ")[2]
-score: .get(n).split(" | ")[3]
-suma: .get(n).split(" | ")[4]
-autosuma: .get(n).split(" | ")[5]
-oven: .get(n).split(" | ")[6]
-cliclvl: .get(n).split(" | ")[7]
-autolvl: .get(n).split(" | ")[8]
-ovenlvl: .get(n).split(" | ")[9]
-costeclick: .get(n).split(" | ")[10]
-costeauto: .get(n).split(" | ")[11]
- */
 
 public class Game extends AppCompatActivity {
 
@@ -70,18 +53,18 @@ public class Game extends AppCompatActivity {
 
         db = new DB_Handler(this);
 
+        //BG Color
         View root = findViewById(R.id.game);
         root.setBackgroundColor(bgcolor);
 
+        //Initialization
         devmode = false;
-        miku = (ImageView) findViewById(R.id.miku);
         coins = new BigInteger("0");
         boing.setDuration(100);
 
+        //Defining elements
         assetfeed = (TextView) findViewById(R.id.asset);
-        assetfeed.setTextColor(txtcolor);
-        assetfeed.setBackgroundColor(assetscolor);
-
+        miku = (ImageView) findViewById(R.id.miku);
         counter = (TextView) findViewById(R.id.countertext);
         clicklevel = (TextView) findViewById(R.id.cliclevel);
         autoclicklevel = (TextView) findViewById(R.id.autocliclevel);
@@ -90,14 +73,19 @@ public class Game extends AppCompatActivity {
         playingAs = (TextView) findViewById(R.id.PlayingAs);
         miku = (ImageView) findViewById(R.id.miku);
 
+        //Configuring elements
+        assetfeed.setTextColor(txtcolor);
+        assetfeed.setBackgroundColor(assetscolor);
         counter.setTextColor(txtcolor);
         clicklevel.setTextColor(txtcolor);
         autoclicklevel.setTextColor(txtcolor);
         ovenlevel.setTextColor(txtcolor);
         says.setTextColor(txtcolor);
 
+        //Unpacking bundle
         Bundle bundle = this.getIntent().getExtras();
         if (bundle != null){
+            //Comes from the shop
             if(!bundle.getString("From").equals("Main")){
                 idPlayer = bundle.getInt("idPlayer");
                 valorSumaClick = bundle.getLong("valorSumaClick");
@@ -119,6 +107,7 @@ public class Game extends AppCompatActivity {
                 costemejoraOven = bundle.getInt("costemejoraOven");
                 boost = bundle.getBoolean("boost");
                 coins = new BigInteger(bundle.getString("coins"));
+            //comes from the main menu
             }else{
                 idPlayer = bundle.getInt("idPlayer");
                 devmode = bundle.getBoolean("dev");
@@ -143,12 +132,14 @@ public class Game extends AppCompatActivity {
             }
         }
 
+        //different configs
         if(devmode) valorSumaClick = 10000000;
         if(boost) boost();
         coinDisplayer();
         autoSum();
     }
 
+    //click miku
     public void sum(View v) {
         counter.setTextColor(txtcolor);
         coins = coins.add(new BigInteger(Long.toString(valorSumaClick)));
@@ -156,6 +147,7 @@ public class Game extends AppCompatActivity {
         coinDisplayer();
     }
 
+    //Back button
     public void backbutton(View v){
         StringBuilder sb = new StringBuilder();
         sb.append("UPDATE Jugadores SET ");
@@ -174,6 +166,7 @@ public class Game extends AppCompatActivity {
         finish();
     }
 
+    //Go to store
     public void gotoStore (View v){
         Intent i = new Intent(this, Upgrades.class);
         i.putExtra("idPlayer", idPlayer);
@@ -192,29 +185,31 @@ public class Game extends AppCompatActivity {
         finish();
     }
 
+    //Format the coins properly
     public void coinDisplayer() {
         //In order compares to: thousand, million, billion, trillion, quadrillion, quintillion, sextillion, septillion (and normal units) in short scale.
         if (coins.compareTo(new BigInteger("1000")) == 1 && coins.compareTo(new BigInteger("1000000")) != 1) {
             counter.setText((new BigDecimal(coins).divide(new BigDecimal("1000"), 2, RoundingMode.FLOOR)).toString() + "k");
         } else if (coins.compareTo(new BigInteger("1000000")) == 1 && coins.compareTo(new BigInteger("1000000000")) != 1) {
-            counter.setText((new BigDecimal(coins).divide(new BigDecimal("1000000"), 2, RoundingMode.FLOOR)).toString() + "M");
+            counter.setText((new BigDecimal(coins).divide(new BigDecimal("1000000"), 2, RoundingMode.FLOOR)).toString() + "Mi");
         } else if (coins.compareTo(new BigInteger("1000000000")) == 1 && coins.compareTo(new BigInteger("1000000000000")) != 1) {
-            counter.setText((new BigDecimal(coins).divide(new BigDecimal("1000000000"), 2, RoundingMode.FLOOR)).toString() + "B");
+            counter.setText((new BigDecimal(coins).divide(new BigDecimal("1000000000"), 2, RoundingMode.FLOOR)).toString() + "Bi");
         } else if (coins.compareTo(new BigInteger("1000000000000")) == 1 && coins.compareTo(new BigInteger("1000000000000000")) != 1) {
-            counter.setText((new BigDecimal(coins).divide(new BigDecimal("1000000000000"), 2, RoundingMode.FLOOR)).toString() + "T");
+            counter.setText((new BigDecimal(coins).divide(new BigDecimal("1000000000000"), 2, RoundingMode.FLOOR)).toString() + "Tr");
         } else if (coins.compareTo(new BigInteger("1000000000000000")) == 1 && coins.compareTo(new BigInteger("1000000000000000000")) != 1) {
-            counter.setText((new BigDecimal(coins).divide(new BigDecimal("1000000000000000"), 2, RoundingMode.FLOOR)).toString() + "C");
+            counter.setText((new BigDecimal(coins).divide(new BigDecimal("1000000000000000"), 2, RoundingMode.FLOOR)).toString() + "Qa");
         } else if (coins.compareTo(new BigInteger("1000000000000000000")) == 1 && coins.compareTo(new BigInteger("1000000000000000000000")) != 1) {
-            counter.setText((new BigDecimal(coins).divide(new BigDecimal("1000000000000000000"), 2, RoundingMode.FLOOR)).toString() + "Q");
+            counter.setText((new BigDecimal(coins).divide(new BigDecimal("1000000000000000000"), 2, RoundingMode.FLOOR)).toString() + "Qi");
         } else if (coins.compareTo(new BigInteger("1000000000000000000000")) == 1 && coins.compareTo(new BigInteger("1000000000000000000000000")) != 1) {
-            counter.setText((new BigDecimal(coins).divide(new BigDecimal("1000000000000000000000"), 2, RoundingMode.FLOOR)).toString() + "S");
+            counter.setText((new BigDecimal(coins).divide(new BigDecimal("1000000000000000000000"), 2, RoundingMode.FLOOR)).toString() + "Si");
         } else if (coins.compareTo(new BigInteger("1000000000000000000000000")) == 1 && coins.compareTo(new BigInteger("1000000000000000000000000000")) != 1) {
-            counter.setText((new BigDecimal(coins).divide(new BigDecimal("1000000000000000000000000"), 2, RoundingMode.FLOOR)).toString() + "H");
+            counter.setText((new BigDecimal(coins).divide(new BigDecimal("1000000000000000000000000"), 2, RoundingMode.FLOOR)).toString() + "Se");
         } else {
             counter.setText(coins.toString());
         }
     }
 
+    //Thread for autosum
     public void autoSum() {
         new Thread(() -> {
             while (true) {
@@ -228,6 +223,7 @@ public class Game extends AppCompatActivity {
         }).start();
     }
 
+    //Thread for boost
     public void boost() { //not working properly
         new Thread(() -> {
             valorSumaClick *= 2;

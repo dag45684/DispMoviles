@@ -35,15 +35,19 @@ public class Settings extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
 
+        //BG color
         View rootUpgrade = findViewById(R.id.settings);
         rootUpgrade.setBackgroundColor(bgcolor);
 
+        //define the text properties
         t = (TextView) findViewById(R.id.setView) ;
         t.setTextColor(txtcolor);
 
+        //get the bundle and unpack it
         bundle = getIntent().getExtras();
         idPlayer = bundle.getInt("idPlayer");
 
+        //define the buttons
         s1 = (Button) findViewById(R.id.set1);
         s1.setBackgroundColor(assetscolor);
         s2 = (Button) findViewById(R.id.set2);
@@ -60,6 +64,7 @@ public class Settings extends AppCompatActivity {
         devmode = false;
     }
 
+    //change account
     public void logout(View v){
         if(idPlayer != 0){
             Intent i = new Intent(this, Welcome.class);
@@ -70,6 +75,7 @@ public class Settings extends AppCompatActivity {
         }else t.setText("No account detected");
     }
 
+    //reset the db
     public void deletedb(View v){
         AlertDialog.Builder dialog = new AlertDialog.Builder(this);
         dialog.setMessage("Are you sure you want to delete the entire database?")
@@ -83,6 +89,7 @@ public class Settings extends AppCompatActivity {
                 .show();
     }
 
+    //delete current user
     public void deleteacc(View v){
         if (idPlayer != 0) {
             AlertDialog.Builder dialog = new AlertDialog.Builder(this);
@@ -101,6 +108,7 @@ public class Settings extends AppCompatActivity {
         }else t.setText("No account detected");
     }
 
+    //get current user
     public void getacc(View v){
         if(idPlayer!=0){
             db = new DB_Handler(this);
@@ -115,11 +123,13 @@ public class Settings extends AppCompatActivity {
         } else t.setText("No account detected");
     }
 
+    //Get number of users
     public void getn(View v){
         db = new DB_Handler(this);
         t.setText(db.bitFromDB("SELECT COUNT(id) FROM Jugadores") == null ? "No users registered yet" : db.bitFromDB("SELECT Count(*) FROM Jugadores"));
     }
 
+    //Back button
     public void back(View v){
         Intent i = new Intent(this, Welcome.class);
         i.putExtra("idPlayer", ""+idPlayer);
@@ -128,6 +138,7 @@ public class Settings extends AppCompatActivity {
         finish();
     }
 
+    //activates devmode so clicks value adds up 10M
     public void devMode (View v){
         devmode = true;
         Intent i = new Intent(this, Welcome.class);

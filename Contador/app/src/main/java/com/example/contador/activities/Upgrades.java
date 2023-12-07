@@ -50,11 +50,14 @@ public class Upgrades extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_upgrades);
 
+        //Bg Color
         View rootUpgrade = findViewById(R.id.upgrades);
         rootUpgrade.setBackgroundColor(bgcolor);
 
+        //define the counter
         counter = (TextView) findViewById(R.id.coinsreal);
 
+        //the list for the upgrades
         l = Arrays.asList(
                 new Upgrade("Increases click value",
                         "100",
@@ -81,6 +84,7 @@ public class Upgrades extends AppCompatActivity {
                         4,
                         assetscolor)
         );
+        //the actual listview for the upgrades
         lv = (ListView) findViewById(R.id.list);
         Upgrade_Adapter upgradeAdapter = new Upgrade_Adapter(this, R.layout.item_upgrade, l);
         lv.setAdapter(upgradeAdapter);
@@ -93,6 +97,7 @@ public class Upgrades extends AppCompatActivity {
             }
         });
 
+        //Unpack the bundle
         bundle = getIntent().getExtras();
         idPlayer = bundle.getInt("idPlayer");
         valorSumaClick = bundle.getLong("valorSumaClick");
@@ -107,13 +112,16 @@ public class Upgrades extends AppCompatActivity {
         boost = bundle.getBoolean("boost");
         coins = new BigInteger(bundle.getString("coins"));
 
+        //set the proper price for the upgrades on creation
         l.get(0).setUpgradedetails(Integer.toString(costemejoraClick));
         l.get(1).setUpgradedetails(Integer.toString(costemejoraAutoclick));
 
+        //format and restart the autosum
         coinDisplayer();
         autoSum();
     }
 
+    //back button
     public void goback(View v){
         Intent i = new Intent(Upgrades.this, Game.class);
 
@@ -137,10 +145,12 @@ public class Upgrades extends AppCompatActivity {
         finish();
     }
 
+    //coins will not be formatted here so we just give it to the counter as string
     public void coinDisplayer() {
         counter.setText(coins.toString());
     }
 
+    //thread for autosum
     public void autoSum() {
         new Thread(() -> {
             while (true) {
@@ -153,6 +163,8 @@ public class Upgrades extends AppCompatActivity {
         }).start();
     }
 
+    //switch for the item we will buy and call for the function that checks the money, buys it and
+    //makes it work properly (right below this func.)
     public void levelup (int tag){
         switch (tag){
             case 1:

@@ -34,11 +34,13 @@ public class About extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_info);
 
+        //BG Color
         View rootUpgrade = findViewById(R.id.infos);
         rootUpgrade.setBackgroundColor(bgcolor);
 
         db = new DB_Handler(this);
 
+        //Recyclers
         RecyclerView rv_i = (RecyclerView) findViewById(R.id.recycler_info);
         rv_i.setHasFixedSize(true);
         rv_i.setLayoutManager(new LinearLayoutManager(this));
@@ -81,6 +83,7 @@ public class About extends AppCompatActivity {
         rv_l.setBackgroundColor(Color.parseColor("#888888"));
     }
 
+    //back button
     void back(View v){
         finish();
     }
