@@ -39,6 +39,7 @@ costeauto: .get(n).split(" | ")[11]
 public class Welcome extends AppCompatActivity {
 
     boolean night;
+    boolean devmode;
     int idPlayer = 0;
     TextView testdb;
     Bundle b;
@@ -67,10 +68,12 @@ public class Welcome extends AppCompatActivity {
         btnSettings = (Button) findViewById(R.id.btnSettings);
         btnSettings.setBackgroundColor(assetscolor);
 
+        devmode = false;
+
         b = getIntent().getExtras();
         if (b!=null){
-            Log.i("semen", "HERE->"+b.getString("idPlayer"));
             idPlayer = Integer.parseInt(b.getString("idPlayer"));
+            devmode = b.getBoolean("dev");
         }
     }
 
@@ -83,6 +86,7 @@ public class Welcome extends AppCompatActivity {
         if (idPlayer != 0) {
             Intent i = new Intent(this, Game.class);
             i.putExtra("idPlayer", idPlayer);
+            i.putExtra("dev", devmode);
             i.putExtra("From", "Main");
             startActivity(i);
         }else{

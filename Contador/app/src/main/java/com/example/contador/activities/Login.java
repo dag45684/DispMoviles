@@ -24,8 +24,8 @@ public class Login extends AppCompatActivity {
 
     boolean night = AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES;
     int bgcolor = night ? Color.parseColor("#5c5c5c") : Color.parseColor("#b5d6eb");
-    int txtcolor = night ? Color.CYAN : Color.BLACK;
-    int assetscolor = night ? Color.BLACK : Color.parseColor("#f2f2f2");
+    int txtcolor = night ? Color.CYAN : Color.parseColor("#f2f2f2");
+    int assetscolor = Color.BLACK;
     Switch isnew;
     EditText name;
     EditText pass;
@@ -93,7 +93,6 @@ public class Login extends AppCompatActivity {
             //try login -> name available
             }else {
                 ArrayList<String> l = db.readFromDB(String.format("nombre = '%s'", name.getText().toString()));
-                Log.i("semen", l.get(0));
                 if (l.get(0).split("\\s\\|\\s")[1].equals(name.getText().toString()) && l.get(0).split("\\s\\|\\s")[2].equals(pass.getText().toString())){
                     Intent i = new Intent(this, Welcome.class);
                     i.putExtra("idPlayer", l.get(0).split("\\s\\|\\s")[0]);
@@ -112,14 +111,16 @@ public class Login extends AppCompatActivity {
             errormsg.setText("La password no coincide");
         //try register -> success
         } else {
-            db.newEntry(name.getText().toString(), pass.getText().toString());
-            Intent i = new Intent(this, Welcome.class);
-            ArrayList<String> l = db.readFromDB(String.format("nombre = '%s'", name.getText().toString()));
-            if (l.size() > 0){
-                String temp = l.get(0).split("\\s\\|\\s")[0];
-                i.putExtra("idPlayer", temp);
-                startActivity(i);
-                finish();
+            if(newuser){
+                db.newEntry(name.getText().toString(), pass.getText().toString());
+                Intent i = new Intent(this, Welcome.class);
+                ArrayList<String> l = db.readFromDB(String.format("nombre = '%s'", name.getText().toString()));
+                if (l.size() > 0){
+                    String temp = l.get(0).split("\\s\\|\\s")[0];
+                    i.putExtra("idPlayer", temp);
+                    startActivity(i);
+                    finish();
+                }
             }
         }
     }

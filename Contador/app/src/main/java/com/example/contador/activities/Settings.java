@@ -21,9 +21,10 @@ public class Settings extends AppCompatActivity {
 
     DB_Handler db;
     int idPlayer;
+    boolean devmode;
     Bundle bundle;
     TextView t;
-    Button s1, s2, s3, s4, s5;
+    Button s1, s2, s3, s4, s5, s6;
     boolean night = AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES;
     int bgcolor = night ? Color.parseColor("#5c5c5c") : Color.parseColor("#b5d6eb");
     int txtcolor = night ? Color.CYAN : Color.BLACK;
@@ -53,12 +54,17 @@ public class Settings extends AppCompatActivity {
         s4.setBackgroundColor(assetscolor);
         s5 = (Button) findViewById(R.id.set5);
         s5.setBackgroundColor(assetscolor);
+        s6 = (Button) findViewById(R.id.set6);
+        s6.setBackgroundColor(assetscolor);
+
+        devmode = false;
     }
 
     public void logout(View v){
         if(idPlayer != 0){
             Intent i = new Intent(this, Welcome.class);
             i.putExtra("idPlayer", "0");
+            i.putExtra("dev", devmode);
             startActivity(i);
             finish();
         }else t.setText("No account detected");
@@ -86,6 +92,7 @@ public class Settings extends AppCompatActivity {
                         db.rawUpdate(String.format("DELETE FROM Jugadores WHERE id = '%s'", idPlayer));
                         Intent i = new Intent(this, Welcome.class);
                         i.putExtra("idPlayer", "0");
+                        i.putExtra("dev", devmode);
                         startActivity(i);
                         finish();
                     })
@@ -116,8 +123,19 @@ public class Settings extends AppCompatActivity {
     public void back(View v){
         Intent i = new Intent(this, Welcome.class);
         i.putExtra("idPlayer", ""+idPlayer);
+        i.putExtra("dev", devmode);
         startActivity(i);
         finish();
     }
+
+    public void devMode (View v){
+        devmode = true;
+        Intent i = new Intent(this, Welcome.class);
+        i.putExtra("idPlayer", ""+idPlayer);
+        i.putExtra("dev", devmode);
+        startActivity(i);
+        finish();
+    }
+
 
 }
