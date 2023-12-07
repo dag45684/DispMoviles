@@ -42,12 +42,13 @@ costeauto: .get(n).split(" | ")[11]
 public class Game extends AppCompatActivity {
 
     DB_Handler db;
+    boolean devmode;
     int idPlayer;
     boolean night = AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES;
     int bgcolor = night ? Color.parseColor("#5c5c5c") : Color.parseColor("#b5d6eb");
     int txtcolor = night ? Color.CYAN : Color.BLACK;
     int assetscolor = night ? Color.BLACK : Color.parseColor("#f2f2f2");
-    long valorSumaClick = 100000;
+    long valorSumaClick = 1;
     long valorSumaAutoclick = 1;
     int valorOven = 2000;
     int nivelClick = 1;
@@ -72,6 +73,7 @@ public class Game extends AppCompatActivity {
         View root = findViewById(R.id.game);
         root.setBackgroundColor(bgcolor);
 
+        devmode = false;
         miku = (ImageView) findViewById(R.id.miku);
         coins = new BigInteger("0");
         boing.setDuration(100);
@@ -104,6 +106,7 @@ public class Game extends AppCompatActivity {
                 nivelClick = bundle.getInt("nivelClick");
                 nivelAutoclick = bundle.getInt("nivelAutoclick");
                 nivelOven = bundle.getInt("nivelOven");
+                boost = bundle.getBoolean("boost");
 
                 clicklevel.setText((clicklevel.getText().toString().replaceAll(" \\d+ ", "<-->")).replaceAll("<-->", ""+ nivelClick));
                 autoclicklevel.setText((autoclicklevel.getText().toString().replaceAll("\\d+ ", "<-->")).replaceAll("<-->", ""+ nivelAutoclick));
@@ -118,6 +121,7 @@ public class Game extends AppCompatActivity {
                 coins = new BigInteger(bundle.getString("coins"));
             }else{
                 idPlayer = bundle.getInt("idPlayer");
+                devmode = bundle.getBoolean("dev");
                 ArrayList<String> load = db.readFromDB(String.format("id = '%d'", idPlayer));
 
                 playingAs.setText("Playing as: " + load.get(0).split("\\s\\|\\s")[1]);
@@ -138,6 +142,9 @@ public class Game extends AppCompatActivity {
                 autoclicklevel.setText((autoclicklevel.getText().toString().replaceAll("\\+\\d+", "<-->")).replaceAll("<-->", "+"+ valorSumaAutoclick));
             }
         }
+
+        if(devmode) valorSumaClick = 10000000;
+        if(boost) boost();
         coinDisplayer();
         autoSum();
     }
@@ -164,7 +171,7 @@ public class Game extends AppCompatActivity {
         sb.append(" WHERE id="+idPlayer);
         db.rawUpdate(sb.toString());
 
-        finish(); //We let welcome activity on background so we dont need bundle or intent
+        finish();
     }
 
     public void gotoStore (View v){
@@ -179,7 +186,7 @@ public class Game extends AppCompatActivity {
         i.putExtra("costemejoraAutoclick", costemejoraAutoclick);
         i.putExtra("costemejoraClick", costemejoraClick);
         i.putExtra("costemejoraOven", costemejoraOven);
-        i.putExtra("boost", boost);
+        i.putExtra("boost", false);
         i.putExtra("coins", coins.toString());
         startActivity(i);
         finish();
@@ -221,7 +228,7 @@ public class Game extends AppCompatActivity {
         }).start();
     }
 
-    public void boost() {
+    public void boost() { //not working properly
         new Thread(() -> {
             valorSumaClick *= 2;
             valorSumaAutoclick *= 2;
@@ -232,6 +239,7 @@ public class Game extends AppCompatActivity {
             valorSumaClick /= 2;
             valorSumaAutoclick /= 2;
             valorOven *= 2;
+            boost = false;
         }).start();
     }
 

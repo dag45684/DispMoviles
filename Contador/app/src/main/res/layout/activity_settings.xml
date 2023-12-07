@@ -82,6 +82,20 @@
         app:layout_constraintTop_toBottomOf="@+id/set3"
         app:layout_constraintVertical_bias="0.069" />
 
+    <Button
+        android:id="@+id/set6"
+        android:layout_width="451dp"
+        android:layout_height="57dp"
+        android:backgroundTint="#f2f2f2"
+        android:onClick="devMode"
+        android:text="Developer mode"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/set3"
+        app:layout_constraintVertical_bias="0.536" />
+
     <ImageView
         android:id="@+id/imageView6"
         android:layout_width="39dp"

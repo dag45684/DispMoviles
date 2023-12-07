@@ -37,6 +37,7 @@ public class Upgrades extends AppCompatActivity {
     int costemejoraClick = 100;
     int costemejoraOven = 1000000;
     int costemejoraAutoclick = 100;
+    int costeBoost = 5000;
     boolean boost = false;
     BigInteger coins;
     TextView counter, textoNivelClick, textoNivelAutoclick, textoNivelOven;
@@ -68,10 +69,16 @@ public class Upgrades extends AppCompatActivity {
                         2,
                         assetscolor),
                 new Upgrade("Increases speed of the autoclick",
-                        "-1000000",
+                        "1000000",
                         "Buy Oven level",
                         R.drawable.oven,
                         3,
+                        assetscolor),
+                new Upgrade("Boosts your points for 5 seconds.",
+                        "5000",
+                        "Buy Boost",
+                        R.drawable.boost,
+                        4,
                         assetscolor)
         );
         lv = (ListView) findViewById(R.id.list);
@@ -109,6 +116,11 @@ public class Upgrades extends AppCompatActivity {
 
     public void goback(View v){
         Intent i = new Intent(Upgrades.this, Game.class);
+
+        //handle boost lost value (i do not know where lmao)
+        boolean boost_bdl = boost ? true : false;
+        i.putExtra("boost", boost_bdl);
+
         i.putExtra("idPlayer", idPlayer);
         i.putExtra("From", "Upgrades");
         i.putExtra("valorSumaClick", valorSumaClick);
@@ -120,7 +132,6 @@ public class Upgrades extends AppCompatActivity {
         i.putExtra("costemejoraAutoclick", costemejoraAutoclick);
         i.putExtra("costemejoraClick", costemejoraClick);
         i.putExtra("costemejoraOven", costemejoraOven);
-        //i.putExtra("boost", boost);
         i.putExtra("coins", coins.toString());
         startActivity(i);
         finish();
@@ -153,6 +164,8 @@ public class Upgrades extends AppCompatActivity {
             case 3:
                 oven_levelup();
                 break;
+            case 4:
+                boost();
         }
     }
 
@@ -225,16 +238,13 @@ public class Upgrades extends AppCompatActivity {
     }
 
     public void boost() {
-        new Thread(() -> {
-            valorSumaAutoclick *= 2;
-            valorSumaClick *= 2;
-            valorOven /= 2;
-            try {
-                Thread.sleep(5000);
-            } catch (InterruptedException e) {}
-            valorSumaAutoclick /= 2;
-            valorSumaClick /= 2;
-            valorOven *= 2;
-        }).start();
+        if(coins.compareTo(new BigInteger(Integer.toString(costemejoraOven))) == 1) {
+            counter.setTextColor(Color.BLACK);
+            if (!boost) {
+                boost = true;
+                coins = coins.subtract(new BigInteger(Integer.toString(costeBoost)));
+                coinDisplayer();
+            } else counter.setTextColor(Color.RED);
+        }else counter.setTextColor(Color.RED);
     }
 }
