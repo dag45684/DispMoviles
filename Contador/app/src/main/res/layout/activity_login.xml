@@ -5,6 +5,7 @@
     android:background="@color/material_dynamic_primary90"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/logscreen"
     tools:context=".activities.Login">
 
     <EditText

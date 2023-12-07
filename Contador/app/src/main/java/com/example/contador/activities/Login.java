@@ -1,11 +1,14 @@
 package com.example.contador.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Switch;
@@ -19,11 +22,16 @@ import java.util.Arrays;
 
 public class Login extends AppCompatActivity {
 
+    boolean night = AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES;
+    int bgcolor = night ? Color.parseColor("#5c5c5c") : Color.parseColor("#b5d6eb");
+    int txtcolor = night ? Color.CYAN : Color.BLACK;
+    int assetscolor = night ? Color.BLACK : Color.parseColor("#f2f2f2");
     Switch isnew;
     EditText name;
     EditText pass;
     EditText confirm;
     TextView errormsg;
+    Button go;
     boolean newuser;
 
     @Override
@@ -31,13 +39,28 @@ public class Login extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        View root = findViewById(R.id.logscreen);
+        root.setBackgroundColor(bgcolor);
+
         confirm = (EditText) findViewById(R.id.confirm);
         confirm.setVisibility(View.INVISIBLE);
         name = (EditText) findViewById(R.id.name);
         pass = (EditText) findViewById(R.id.pass);
         errormsg = (TextView) findViewById(R.id.err);
-
+        go = (Button) findViewById(R.id.okbutton);
         isnew = (Switch) findViewById(R.id.isnew);
+
+        confirm.setBackgroundColor(txtcolor);
+        pass.setBackgroundColor(txtcolor);
+        name.setBackgroundColor(txtcolor);
+        confirm.setTextColor(assetscolor);
+        pass.setTextColor(assetscolor);
+        name.setTextColor(assetscolor);
+        isnew.setTextColor(Color.BLACK);
+        go.setBackgroundColor(assetscolor);
+        go.setTextColor(txtcolor);
+        errormsg.setTextColor(txtcolor);
+
         isnew.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
